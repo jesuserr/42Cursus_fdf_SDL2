@@ -6,22 +6,27 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/12/08 22:06:42 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/11 23:30:02 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	mlx_put_pixel(t_fdf *fdf, int x, int y, int color)
+void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 {
-	char	*dst;
+	Uint8	r;
+	Uint8	g;
+	Uint8	b;
 
-	dst = fdf->img.addr + ((y * fdf->img.len) + (x * (fdf->img.bpp / 8)));
-	*(unsigned int *)dst = color;
+	r = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = color & 0xFF;
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, r, g, b, 255);
+	SDL_RenderDrawPoint(fdf->sdl.renderer, x, y);
 }
 
 /* Uses Bresenham's line algorithm (extended to work in any octant) */
-/* Pixels outside screen boundaries (including info bar) are not printed */
+/* Pixels outside screen boundaries are not printed */
 void	draw_line(t_line line, t_fdf *fdf)
 {
 	t_line_aux	line_aux;
@@ -32,9 +37,8 @@ void	draw_line(t_line line, t_fdf *fdf)
 	line_aux.error = line_aux.dx + line_aux.dy;
 	while (!(line.x0 == line.x1 && line.y0 == line.y1))
 	{
-		if (line.x0 >= 0 && line.y0 >= (0 + fdf->bar_size)
-			&& line.x0 < WIDTH && line.y0 < HEIGHT)
-			mlx_put_pixel(fdf, line.x0, line.y0, line.color0);
+		if (line.x0 >= 0 && line.y0 >= 0 && line.x0 < WIDTH && line.y0 < HEIGHT)
+			sdl_put_pixel(fdf, line.x0, line.y0, line.color0);
 		if ((2 * line_aux.error) >= line_aux.dy)
 		{
 			line_aux.error = line_aux.error + line_aux.dy;
@@ -58,48 +62,4 @@ void	line_direction(t_line *line, t_line_aux *line_aux)
 		line_aux->sy = 1;
 	else
 		line_aux->sy = -1;
-}
-
-void	print_info(t_fdf *fdf)
-{
-	char	*str;
-
-	str = ft_itoa((int)fdf->angle_x);
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 10, 10, DEF_COLOR, "x:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 40, 10, WHITE, str);
-	free(str);
-	str = ft_itoa((int)fdf->angle_y);
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 80, 10, DEF_COLOR, "y:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 110, 10, WHITE, str);
-	free(str);
-	str = ft_itoa((int)fdf->angle_z);
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 150, 10, DEF_COLOR, "z:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 180, 10, WHITE, str);
-	free(str);
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 230, 10, DEF_COLOR, "Rot.x:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 300, 10, WHITE, "Q/W");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 350, 10, DEF_COLOR, "Rot.y:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 420, 10, WHITE, "A/S");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 470, 10, DEF_COLOR, "Rot.z:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 540, 10, WHITE, "Z/X");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 590, 10, DEF_COLOR, "Alt.Views:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 700, 10, WHITE, "I/O/P");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 770, 10, DEF_COLOR, "Zoom:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 830, 10, WHITE, "Mouse Wheel");
-	print_next_line(fdf);
-}
-
-void	print_next_line(t_fdf *fdf)
-{
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 230, 35, DEF_COLOR, "Iso View:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 330, 35, WHITE, "Press Wheel");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 470, 35, DEF_COLOR, "Rotate x/y:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 590, 35, WHITE, "Mouse Left Button");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 770, 35, DEF_COLOR, "Move:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 830, 35, WHITE, "Arrow Keys or");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 230, 60, DEF_COLOR, "Animation:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 340, 60, WHITE, "Space Bar");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 470, 60, DEF_COLOR, "Scale Height:");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 610, 60, WHITE, "1/2");
-	mlx_string_put(fdf->mlx, fdf->mlx_win, 830, 60, WHITE, "Mouse Right Butt.");
 }

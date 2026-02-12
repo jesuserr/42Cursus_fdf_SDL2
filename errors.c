@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:10:39 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/11/15 11:09:38 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/11 22:53:02 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_error_handler(int error)
 		ft_printf ("%sError - Empty map\n", RED);
 	else if (error == ERROR_MAP)
 		ft_printf ("%sInvalid map format\n", RED);
-	else if (error == ERROR_MLX)
-		ft_printf ("%sError starting MLX instances\n", RED);
+	else if (error == ERROR_SDL)
+		ft_printf ("%sError starting SDL instances\n", RED);
 	exit(EXIT_FAILURE);
 }
 
@@ -61,21 +61,14 @@ void	free_split_and_exit(char **str, int error, char *ptr)
 }
 
 /* Function to exit in controlled way when there is an error during */
-/* the mlx init. Flag controls the step where the error happened and */
-/* frees in consequence */
-void	free_map_and_exit(t_fdf *fdf, int error, int flag)
+/* the SDL init */
+void	free_map_and_exit(t_fdf *fdf, int error)
 {
-	if (flag == 1 || flag == 2)
-	{
-		mlx_destroy_image(fdf->mlx, ((mlx_ptr_t *)fdf->mlx)->img_list);
-		free(((mlx_ptr_t *)fdf->mlx)->img_list);
-		free(fdf->mlx);
-	}
-	if (flag == 2)
-	{
-		mlx_clear_window(fdf->mlx, fdf->mlx_win);
-		mlx_destroy_window(fdf->mlx, fdf->mlx_win);
-	}
+	if (fdf->sdl.renderer)
+		SDL_DestroyRenderer(fdf->sdl.renderer);
+	if (fdf->sdl.window)
+		SDL_DestroyWindow(fdf->sdl.window);
+	SDL_Quit();
 	free(fdf->raw_map);
 	free(fdf->map);
 	ft_error_handler(error);

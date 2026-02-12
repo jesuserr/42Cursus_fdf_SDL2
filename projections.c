@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/11/15 09:13:52 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/11 23:30:21 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	project_points(t_fdf *fdf)
 	{
 		x = (fdf->map[i].x * fdf->scale) + (WIDTH / 2) + fdf->offset_x;
 		y = (fdf->map[i].y * fdf->scale) + (HEIGHT / 2) + fdf->offset_y;
-		if (x >= 0 && y >= (0 + fdf->bar_size) && x < WIDTH && y < HEIGHT)
-			mlx_put_pixel(fdf, x, y, fdf->map[i].color);
+		if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
+			sdl_put_pixel(fdf, x, y, fdf->map[i].color);
 		i++;
 	}
 }

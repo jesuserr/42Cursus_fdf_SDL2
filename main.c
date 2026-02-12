@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/12/08 15:44:47 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:12:59 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,22 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->offset_x = INIT_OFFSET_X;
 	fdf->offset_y = INIT_OFFSET_Y;
 	fdf->user_scale_z = INC_ZOOM_Z;
-	fdf->num_scales_z = 0;
-	fdf->bar_size = 0;
-	ft_memset(&fdf->key, 0, sizeof(t_keys));
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	check_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
 }
 
-void	init_win(t_fdf *fdf, char *s)
+void	init_win(t_fdf *fdf)
 {
-	fdf->mlx = mlx_init();
-	if (!fdf->mlx)
-		free_map_and_exit(fdf, ERROR_MLX, 0);
-	fdf->mlx_win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, s);
-	if (!fdf->mlx_win)
-		free_map_and_exit(fdf, ERROR_MLX, 1);
-	fdf->img.img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-	if (!fdf->img.img)
-		free_map_and_exit(fdf, ERROR_MLX, 2);
-	fdf->img.addr = mlx_get_data_addr(fdf->img.img, &fdf->img.bpp, \
-		&fdf->img.len, &fdf->img.endian);
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		free_map_and_exit(fdf, ERROR_SDL);
+	fdf->sdl.window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, \
+	SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_BORDERLESS);
+	if (fdf->sdl.window == NULL)
+		free_map_and_exit(fdf, ERROR_SDL);
+	fdf->sdl.renderer = SDL_CreateRenderer(fdf->sdl.window, -1, 0);
+	if (fdf->sdl.renderer == NULL)
+		free_map_and_exit(fdf, ERROR_SDL);
 }
 
 void	iso_view(t_fdf *fdf)
@@ -50,36 +45,47 @@ void	iso_view(t_fdf *fdf)
 	fdf->angle_y = 35;
 	fdf->angle_z = 30;
 	rotate(fdf);
-	if (WIDTH > MIN_WIDTH && HEIGHT > MIN_HEIGHT)
-		fdf->bar_size = BAR_INFO_H;
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+	SDL_RenderClear(fdf->sdl.renderer);
 	projection(fdf);
-	mlx_put_image_to_window(fdf->mlx, fdf->mlx_win, fdf->img.img, 0, 0);
-	if (WIDTH > MIN_WIDTH && HEIGHT > MIN_HEIGHT)
-		print_info(fdf);
+	SDL_RenderPresent(fdf->sdl.renderer);
 }
 
-void	init_hooks(t_fdf *fdf)
+/* Erases the image in memory; calculates and writes the new one */
+/* Keeps angles always between 0-359 degrees */
+void	process_input_events_and_render(t_fdf *fdf)
 {
-	mlx_hook(fdf->mlx_win, 17, 0, close_window, fdf);
-	mlx_hook(fdf->mlx_win, 2, 0, key_pressed, fdf);
-	mlx_hook(fdf->mlx_win, 4, 0, mouse_pressed, fdf);
-	mlx_loop_hook(fdf->mlx, main_loop, fdf);
-	mlx_hook(fdf->mlx_win, 3, 0, key_released, fdf);
-	mlx_hook(fdf->mlx_win, 5, 0, mouse_released, fdf);
-	mlx_mouse_move(fdf->mlx_win, WIDTH / 2, HEIGHT / 2);
-	mlx_hook(fdf->mlx_win, 6, 0, mouse_move, fdf);
+	SDL_Event	event;
+
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+	SDL_RenderClear(fdf->sdl.renderer);
+	normalize_angles(fdf);
+	projection(fdf);
+	SDL_RenderPresent(fdf->sdl.renderer);
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_KEYDOWN)
+			key_pressed(event.key.keysym.sym, fdf);
+		else if (event.type == SDL_KEYUP)
+			key_released(event.key.keysym.sym, fdf);
+	}
+	unrotate(fdf);
+	key_action_1(fdf);
+	key_action_2(fdf);
+	key_action_3(fdf);
+	rotate(fdf);
 }
 
 int	main(int argc, char **argv)
 {
-	t_fdf	fdf;	
+	t_fdf	fdf;
 
+	ft_bzero(&fdf, sizeof(t_fdf));
 	if (argc != 2)
 		ft_error_handler(ERROR_ARGS);
 	init_map(argv[1], &fdf);
-	init_win(&fdf, argv[1]);
+	init_win(&fdf);
 	iso_view(&fdf);
-	init_hooks(&fdf);
-	mlx_loop(fdf.mlx);
-	return (0);
+	while (1)
+		process_input_events_and_render(&fdf);
 }
