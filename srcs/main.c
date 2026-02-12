@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 11:52:45 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:32:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->offset_x = INIT_OFFSET_X;
 	fdf->offset_y = INIT_OFFSET_Y;
 	fdf->user_scale_z = INC_ZOOM_Z;
+	fdf->render_color_gradient = true;
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	check_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
@@ -57,11 +58,6 @@ void	process_input_events_and_render(t_fdf *fdf)
 {
 	SDL_Event	event;
 
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-	SDL_RenderClear(fdf->sdl.renderer);
-	normalize_angles(fdf);
-	projection(fdf);
-	SDL_RenderPresent(fdf->sdl.renderer);
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_KEYDOWN)
@@ -70,10 +66,12 @@ void	process_input_events_and_render(t_fdf *fdf)
 			key_released(event.key.keysym.sym, fdf);
 	}
 	unrotate(fdf);
-	key_action_1(fdf);
-	key_action_2(fdf);
-	key_action_3(fdf);
+	apply_key_events(fdf);
 	rotate(fdf);
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+	SDL_RenderClear(fdf->sdl.renderer);
+	projection(fdf);
+	SDL_RenderPresent(fdf->sdl.renderer);
 }
 
 int	main(int argc, char **argv)

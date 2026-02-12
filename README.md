@@ -157,6 +157,7 @@ make re      # Recompile everything
 | **SPACE** | Toggle automatic rotation animation |
 | **C** | Reset view (zoom, position, rotation, and height) |
 | **R** | Toggle line rendering (show/hide wireframe) |
+| **G** | Toggle gradient color interpolation |
 | **I** | Isometric projection |
 | **O** | Parallel/Orthographic projection |
 | **P** | Perspective projection |
@@ -266,6 +267,15 @@ The project includes various test maps in the `maps/` directory:
 - **3D Rotation Matrices**: Separate X, Y, Z axis rotations
 - **Isometric Projection**: 45° rotation on Y-axis, 35° on X-axis
 - **Automatic Scaling**: Adapts to different map sizes and window dimensions
+
+### Code Standards
+This SDL2 version maintains **full compliance with 42's Norminette** coding standard, which explains some unconventional coding patterns that may be encountered, such as:
+- Function length limited to 25 lines and no more than 5 functions per file
+- Maximum 4 parameters per function and no declaration and assignment in the same line
+- All variables must be declared at the beginning of a function
+- Strict formatting rules for brackets, spaces, and indentation
+
+These constraints, while restrictive, demonstrate the ability to write clean, maintainable code within strict guidelines.
 
 <a name="known-issues"></a>
 ## 🐛 Known Issues

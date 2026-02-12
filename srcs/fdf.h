@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 15:56:18 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 00:12:18 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@
 # define HEIGHT			900
 # define ALLOWED_CHR	"-0123456789 ,xABCDEFabcdef"
 # define DEF_COLOR		0xf26e04
-# define WHITE			0xFFFFFF
+# define HEX_BLUE		0x0000FF
+# define HEX_CYAN		0x00FFFF
+# define HEX_GREEN		0x00FF00
+# define HEX_YELLOW		0xFFFF00
+# define HEX_RED		0xFF0000
 # define PI				3.141592654
 # define INIT_SCALE		0.75
 # define ROT_ANGLE		2
@@ -53,16 +57,16 @@
 # include "libft/includes/get_next_line.h"
 # include "libft/includes/ft_printf.h"
 # include "libft/includes/libft.h"
-# include <fcntl.h>	// for open
+# include <fcntl.h>						// for open
 # include <math.h>
 # ifdef __APPLE__
-#  include <SDL.h>					// for SDL library (macOS)
-#  include <SDL2_gfxPrimitives.h>	// for SDL2_gfx graphics primitives (macOS)
+#  include <SDL.h>						// for SDL library (macOS)
+#  include <SDL2_gfxPrimitives.h>		// for SDL2_gfx graph primitives (macOS)
 # else
 #  include <SDL2/SDL.h>					// for SDL library (Linux)
 #  include <SDL2/SDL2_gfxPrimitives.h>	// for SDL2_gfx graph primitives (Linux)
 # endif
-# include <stdbool.h>						// for bool type
+# include <stdbool.h>					// for bool type
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -73,7 +77,8 @@ typedef struct s_point
 	float	x;
 	float	y;
 	float	z;
-	int		color;	
+	int		color;
+	int		color_gradient;
 }	t_point;
 
 typedef struct s_line
@@ -142,6 +147,7 @@ typedef struct s_fdf
 	float			user_scale_z;
 	int				num_scales_z;
 	bool			render_only_points;
+	bool			render_color_gradient;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer
@@ -173,10 +179,7 @@ char	*read_map(char *file, t_fdf *fdf);
 void	check_map(t_fdf *fdf);
 
 /********************************** moves.c ***********************************/
-void	key_action_1(t_fdf *fdf);
-void	key_action_2(t_fdf *fdf);
-void	key_action_3(t_fdf *fdf);
-void	normalize_angles(t_fdf *fdf);
+void	apply_key_events(t_fdf *fdf);
 
 /******************************** projections.c *******************************/
 void	projection(t_fdf *fdf);
