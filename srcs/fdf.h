@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 12:33:15 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:56:18 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@
 # include "libft/includes/libft.h"
 # include <fcntl.h>	// for open
 # include <math.h>
-# include <SDL2/SDL.h>						// for SDL library
-# include <SDL2/SDL2_gfxPrimitives.h>		// for SDL2_gfx graphics primitives
+# ifdef __APPLE__
+#  include <SDL.h>					// for SDL library (macOS)
+#  include <SDL2_gfxPrimitives.h>	// for SDL2_gfx graphics primitives (macOS)
+# else
+#  include <SDL2/SDL.h>					// for SDL library (Linux)
+#  include <SDL2/SDL2_gfxPrimitives.h>	// for SDL2_gfx graph primitives (Linux)
+# endif
 # include <stdbool.h>						// for bool type
 
 /*

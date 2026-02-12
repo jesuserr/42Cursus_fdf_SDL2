@@ -23,14 +23,12 @@
 
 **FDF** (Fil de Fer, French for "wireframe") is a 3D wireframe viewer that renders elevation maps as interactive 3D landscapes. This project creates a graphical representation by connecting 3D points (x, y, z) with line segments to form a mesh.
 
-Originally developed as a 42 school project using **MiniLibX**, this version has been **migrated to SDL2** for better cross-platform compatibility and enhanced graphics capabilities.
-
-<a name="from-minilibx-to-sdl2"></a>
-## 🔄 From MiniLibX to SDL2
-
-This project was initially developed using MiniLibX (macOS version) and successfully passed the 42 school evaluation with a grade of **125%** (mandatory + bonus). 
+Originally developed as a 42 school project using **MiniLibX** (macOS version) and successfully earning a grade of **125%** (mandatory + bonus), this version has been **migrated to SDL2** for better cross-platform compatibility and enhanced graphics capabilities.
 
 **Original project**: [42cursus_fdf](https://github.com/jesuserr/42cursus_fdf)
+
+<a name="from-minilibx-to-sdl2"></a>
+## 🔄 From MiniLibX to SDL2 
 
 ### Why SDL2?
 
@@ -40,6 +38,7 @@ After project approval, the graphics library was replaced with **SDL2** to provi
 - **Better performance**: Hardware-accelerated rendering
 - **Active maintenance**: SDL2 is actively developed and widely supported
 - **Modern API**: More flexible and feature-rich graphics capabilities
+- **Learning opportunity**: Experimentation with different graphical libraries beyond the 42 curriculum
 
 ### Migration Details
 
@@ -279,5 +278,3 @@ The project includes various test maps in the `maps/` directory:
 This project is part of 42 school curriculum. Feel free to use it for learning purposes.
 
 ---
-
-**Note**: This SDL2 port maintains the core FDF functionality while providing enhanced cross-platform compatibility. The original MiniLibX version successfully passed 42 evaluation with full marks.
