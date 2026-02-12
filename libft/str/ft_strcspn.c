@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 12:27:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/06/02 12:31:52 by jesuserr         ###   ########.fr       */
+/*   Updated: 2024/10/08 23:44:12 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strcspn(const char *s, const char *reject)
 				return (i);
 			j++;
 		}
-	i++;
+		i++;
 	}
 	return (i);
 }

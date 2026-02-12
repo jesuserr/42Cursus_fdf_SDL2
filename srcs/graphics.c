@@ -6,11 +6,13 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/11 23:30:02 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:00:23 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	line_direction(t_line *line, t_line_aux *line_aux);
 
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 {
@@ -52,7 +54,7 @@ void	draw_line(t_line line, t_fdf *fdf)
 	}
 }
 
-void	line_direction(t_line *line, t_line_aux *line_aux)
+static void	line_direction(t_line *line, t_line_aux *line_aux)
 {
 	if (line->x0 < line->x1)
 		line_aux->sx = 1;

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 14:38:15 by jesuserr          #+#    #+#             */
-/*   Updated: 2024/10/08 23:41:57 by jesuserr         ###   ########.fr       */
+/*   Created: 2025/07/14 00:26:17 by jesuserr          #+#    #+#             */
+/*   Updated: 2025/07/14 00:40:33 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_list	*temp;
+	size_t	i;
 
-	if (!lst)
-		return ;
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		(*lst) = temp;
-	}
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -1,76 +1,65 @@
 # libft
-Compilation of functions created during the 42_Cursus
-So far includes:
+Compilation of functions created during the 42_Cursus. So far it includes:
 
-- libft
 - ft_printf
 - get_next_line
 
-- gnl:
-- get_next_line.c
-- get_next_line_utils.c
-
-- includes:
-- ft_printf.h
-- get_next_line.h
-- libft.h
-
 - is:
-- ft_isalnum.c
-- ft_isalpha.c
-- ft_isascii.c
-- ft_isdigit.c
-- ft_isprint.c
+  - ft_isalnum
+  - ft_isalpha
+  - ft_isascii
+  - ft_isdigit
+  - ft_isprint
 
 - lst:
-- ft_lstadd_back.c
-- ft_lstadd_front.c
-- ft_lstclear.c
-- ft_lstdelone.c
-- ft_lstiter.c
-- ft_lstlast.c
-- ft_lstmap.c
-- ft_lstnew.c
-- ft_lstsize.c
+  - ft_lstadd_back
+  - ft_lstadd_front
+  - ft_lstclear
+  - ft_lstdelone
+  - ft_lstiter
+  - ft_lstlast
+  - ft_lstmap
+  - ft_lstnew
+  - ft_lstsize
 
 - mem:
-- ft_bzero.c
-- ft_calloc.c
-- ft_memchr.c
-- ft_memcmp.c
-- ft_memcpy.c
-- ft_memmove.c
-- ft_memset.c
-
-- printf:
-- ft_printf.c
-- ft_put_nums.c
-- ft_put_text.c
+  - ft_bzero
+  - ft_calloc
+  - ft_memchr
+  - ft_memcmp
+  - ft_memcpy
+  - ft_memmove
+  - ft_memset
+  - ft_hex_dump
 
 - put:
-- ft_putchar_fd.c
-- ft_putendl_fd.c
-- ft_putnbr_fd.c
-- ft_putstr_fd.c
+  - ft_putchar_fd
+  - ft_putendl_fd
+  - ft_putnbr_fd
+  - ft_putstr_fd
 
 - str:
-- ft_split.c
-- ft_strchr.c
-- ft_strdup.c
-- ft_striteri.c
-- ft_strjoin.c
-- ft_strlcat.c
-- ft_strlcpy.c
-- ft_strlen.c
-- ft_strmapi.c
-- ft_strncmp.c
-- ft_strnstr.c
-- ft_strrchr.c
-- ft_strtrim.c
-- ft_substr.c
+  - ft_split
+  - ft_strchr
+  - ft_strdup
+  - ft_striteri
+  - ft_strjoin
+  - ft_strlcat
+  - ft_strlcpy
+  - ft_strlen
+  - ft_strmapi
+  - ft_strncmp
+  - ft_strcmp
+  - ft_strnstr
+  - ft_strrchr
+  - ft_strtrim
+  - ft_substr
+  - ft_strspn
+  - ft_strcspn
+  - ft_strstr
 
 - to:
-- ft_atoi.c
-- ft_itoa.c
-- ft_tolower.c
-- ft_toupper.c
+  - ft_atoi
+  - ft_itoa
+  - ft_tolower
+  - ft_toupper

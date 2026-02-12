@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 10:05:19 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:58:08 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,51 +144,41 @@ typedef struct s_fdf
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
 **                        FUNCTION PROTOTYPES
 */
+
+/********************************** errors.c **********************************/
 void	ft_error_handler(int error);
 void	free_split(char **str);
 void	free_and_exit(int error, char *ptr);
 void	free_split_and_exit(char **str, int error, char *ptr);
 void	free_map_and_exit(t_fdf *fdf, int error);
 
+/********************************* graphics.c *********************************/
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);
 void	draw_line(t_line line, t_fdf *fdf);
-void	line_direction(t_line *line, t_line_aux *line_aux);
-void	print_next_line(t_fdf *fdf);
 
+/********************************** hooks.c ***********************************/
 int		key_pressed(int keycode, t_fdf *fdf);
-int		key_pressed_aux(int keycode, t_fdf *fdf);
 int		key_released(int keycode, t_fdf *fdf);
-int		key_released_aux(int keycode, t_fdf *fdf);
 int		close_window(t_fdf *fdf);
 
-void	init_map(char *file, t_fdf *fdf);
-void	init_win(t_fdf *fdf);
-void	iso_view(t_fdf *fdf);
-void	init_hooks(t_fdf *fdf);
-
+/********************************* map_utils.c ********************************/
 char	*read_map(char *file, t_fdf *fdf);
 void	check_map(t_fdf *fdf);
-int		count_x_elem(char *line, int jump);
-void	parse_map(t_fdf *fdf, char *line);
-int		get_hex_color(char *color);
 
+/********************************** moves.c ***********************************/
 void	key_action_1(t_fdf *fdf);
 void	key_action_2(t_fdf *fdf);
 void	key_action_3(t_fdf *fdf);
 void	normalize_angles(t_fdf *fdf);
-int		main_loop(t_fdf *fdf);
 
+/******************************** projections.c *******************************/
 void	projection(t_fdf *fdf);
-void	project_x_lines(t_fdf *fdf);
-void	project_y_lines(t_fdf *fdf);
-void	project_points(t_fdf *fdf);
 
+/********************************* rotations.c ********************************/
 void	rotate(t_fdf *fdf);
 void	unrotate(t_fdf *fdf);
-void	rotate_x(t_fdf *fdf, float angle);
-void	rotate_y(t_fdf *fdf, float angle);
-void	rotate_z(t_fdf *fdf, float angle);
 
+/********************************** z-utils.c *********************************/
 void	z_centering(t_fdf *fdf);
 void	modify_height(t_fdf *fdf);
 void	recover_height(t_fdf *fdf);

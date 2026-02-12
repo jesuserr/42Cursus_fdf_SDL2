@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 09:22:35 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/06/03 20:40:50 by jesuserr         ###   ########.fr       */
+/*   Updated: 2025/07/14 00:49:15 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@
 */
 # include <stdlib.h>
 # include <unistd.h>
+
+/*
+** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
+**                              DEFINES
+*/
+# define BLUE       			"\033[0;94m"
+# define RESET      			"\033[0m"
+# define GREY	   				"\033[0;90m"
+# define LIGHT_WHITE			"\033[0;97m"
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -80,5 +89,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 size_t	ft_strspn(const char *s, const char *charset);
 size_t	ft_strcspn(const char *s, const char *reject);
 char	*ft_strstr(const char *haystack, const char *needle);
+void	ft_hex_dump(const void *src, size_t len, size_t bytes_per_line);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

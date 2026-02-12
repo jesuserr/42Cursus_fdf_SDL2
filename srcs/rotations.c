@@ -6,11 +6,15 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:22:46 by jesuserr          #+#    #+#             */
-/*   Updated: 2023/11/15 09:13:56 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:57:00 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	rotate_x(t_fdf *fdf, float angle);
+static void	rotate_y(t_fdf *fdf, float angle);
+static void	rotate_z(t_fdf *fdf, float angle);
 
 /* All rotations are clockwise */
 void	rotate(t_fdf *fdf)
@@ -27,7 +31,7 @@ void	unrotate(t_fdf *fdf)
 	rotate_x(fdf, -fdf->angle_x);
 }
 
-void	rotate_x(t_fdf *fdf, float angle)
+static void	rotate_x(t_fdf *fdf, float angle)
 {
 	int		i;
 	float	copy_y;
@@ -45,7 +49,7 @@ void	rotate_x(t_fdf *fdf, float angle)
 	}
 }
 
-void	rotate_y(t_fdf *fdf, float angle)
+static void	rotate_y(t_fdf *fdf, float angle)
 {
 	int		i;
 	float	copy_x;
@@ -63,7 +67,7 @@ void	rotate_y(t_fdf *fdf, float angle)
 	}
 }
 
-void	rotate_z(t_fdf *fdf, float angle)
+static void	rotate_z(t_fdf *fdf, float angle)
 {
 	int		i;
 	float	copy_x;

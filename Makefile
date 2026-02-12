@@ -13,18 +13,22 @@
 LIBFT_DIR = libft/
 
 NAME = fdf
-SRCS = main.c map_utils.c errors.c z_utils.c rotations.c projections.c \
-graphics.c moves.c hooks.c
+SRCS =  main.c map_utils.c errors.c z_utils.c rotations.c projections.c \
+		graphics.c moves.c hooks.c
 
-OBJS = $(SRCS:.c=.o)
-DEPS = $(SRCS:.c=.d)
+PATH_SRCS = ./srcs/
+PATH_OBJS = ./srcs/objs/
+PATH_DEPS = ./srcs/objs/
+
+OBJS = $(addprefix $(PATH_OBJS), $(SRCS:.c=.o))
+DEPS = $(addprefix $(PATH_DEPS), $(SRCS:.c=.d))
 
 INCLUDE = -I./ -I./libft/includes/
 RM = rm -f
-CFLAGS = -O3 -Wall -Wextra -Werror
+CFLAGS = -O3 -Wall -Wextra -Werror -pedantic -Wshadow
 LDFLAGS = -lSDL2 -lSDL2_gfx -lm
 
-NORM = ${SRCS} fdf.h
+NORM = $(addprefix $(PATH_SRCS), $(SRCS)) ./srcs/fdf.h
 GREEN = "\033[0;92m"
 RED = "\033[0;91m"
 BLUE = "\033[0;94m"
@@ -33,24 +37,24 @@ NC = "\033[37m"
 all: makelibft $(NAME)
 
 makelibft:
-	@make --no-print-directory -C $(LIBFT_DIR)	
-	@echo ${GREEN}"Libft Compiled!\n"${NC};
+	@make --no-print-directory -C $(LIBFT_DIR)
 
-%.o: %.c
+$(PATH_OBJS)%.o: $(PATH_SRCS)%.c Makefile
+	@mkdir -p $(PATH_OBJS)
 	$(CC) $(CFLAGS) -MMD $(INCLUDE) -c $< -o $@
 	
 $(NAME): $(OBJS) $(LIBFT_DIR)libft.a
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_DIR)libft.a -o $@ $(LDFLAGS)
-	@echo ${GREEN}"fdf Compiled!\n"${NC};
+	@echo ${GREEN}"fdf Compiled!"${NC};
 -include $(DEPS)
 
 clean:
 	@make clean --no-print-directory -C $(LIBFT_DIR)
-	$(RM) $(OBJS) $(DEPS)
+	@rm -rf $(PATH_OBJS)
 		
 fclean:
 	@make fclean --no-print-directory -C $(LIBFT_DIR)
-	$(RM) $(OBJS) $(DEPS)
+	@rm -rf $(PATH_OBJS)
 	$(RM) $(NAME)
 
 norm:
@@ -62,3 +66,4 @@ norm:
 re: fclean all
 
 .PHONY: all clean fclean re makelibft norm
+.SILENT:

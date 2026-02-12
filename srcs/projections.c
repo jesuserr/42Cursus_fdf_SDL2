@@ -6,11 +6,15 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/11 23:30:21 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:03:18 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	project_x_lines(t_fdf *fdf);
+static void	project_y_lines(t_fdf *fdf);
+__attribute__((unused)) static void	project_points(t_fdf *fdf);
 
 /* Scales figure according to screen size, INIT_SCALE value and user zoom */
 /* Uses the worst case scale (smaller one) between x and y */
@@ -32,7 +36,7 @@ void	projection(t_fdf *fdf)
 /* A copy of struct "line" is passed to draw_line since */
 /* values are modified inside and would affect this function */
 /* Offset used for translation of the figure by user */
-void	project_x_lines(t_fdf *fdf)
+static void	project_x_lines(t_fdf *fdf)
 {
 	t_line	line;
 	int		i;
@@ -56,7 +60,7 @@ void	project_x_lines(t_fdf *fdf)
 /* A copy of struct "line" is passed to draw_line since */
 /* values are modified inside and would affect this function */
 /* Offset used for translation of the figure by user */
-void	project_y_lines(t_fdf *fdf)
+static void	project_y_lines(t_fdf *fdf)
 {
 	t_line	line;
 	int		i;
@@ -83,7 +87,7 @@ void	project_y_lines(t_fdf *fdf)
 /* Draws only the points, no lines */
 /* Values outside screen boundaries are not printed */
 /* Offset used for translation of the figure by user */
-void	project_points(t_fdf *fdf)
+static void	project_points(t_fdf *fdf)
 {
 	int		i;
 	float	x;
