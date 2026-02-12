@@ -18,12 +18,14 @@
 - [Known Issues](#known-issues)
 - [License](#license)
 
+<a name="about"></a>
 ## 🎯 About
 
 **FDF** (Fil de Fer, French for "wireframe") is a 3D wireframe viewer that renders elevation maps as interactive 3D landscapes. This project creates a graphical representation by connecting 3D points (x, y, z) with line segments to form a mesh.
 
 Originally developed as a 42 school project using **MiniLibX**, this version has been **migrated to SDL2** for better cross-platform compatibility and enhanced graphics capabilities.
 
+<a name="from-minilibx-to-sdl2"></a>
 ## 🔄 From MiniLibX to SDL2
 
 This project was initially developed using MiniLibX (macOS version) and successfully passed the 42 school evaluation with a grade of **125%** (mandatory + bonus). 
@@ -50,6 +52,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 | `mlx_new_image()` + `mlx_get_data_addr()` | `SDL_CreateRenderer()` |
 | Keyboard hooks | SDL_Event polling |
 
+<a name="features"></a>
 ## ✨ Features
 
 ### Visualization Modes
@@ -75,6 +78,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Memory management**: Clean allocation/deallocation with no leaks (except SDL2 library internal leaks)
 - **Error handling**: Robust validation for file format and content
 
+<a name="requirements"></a>
 ## 🔧 Requirements
 
 ### System Dependencies
@@ -92,6 +96,7 @@ brew install sdl2 sdl2_gfx
 - Make
 - Standard C library (C99 or later)
 
+<a name="installation"></a>
 ## 🚀 Installation
 
 1. **Clone the repository**
@@ -118,6 +123,7 @@ make fclean  # Remove object files and executable
 make re      # Recompile everything
 ```
 
+<a name="usage"></a>
 ## 🎮 Usage
 
 ```bash
@@ -129,19 +135,19 @@ make re      # Recompile everything
 # Simple 42 logo
 ./fdf maps/42.fdf
 
-# Colored 42 logo
-./fdf maps/42color.fdf
+# Colored terrain
+./fdf maps/t1.fdf
 
-# Pyramid
-./fdf maps/pyramide.fdf
+# Mandelbrot fractal (250000 points)
+# Recommended to toggle to wireframe mode (R key) for better performance
+./fdf maps/elem-fract.fdf
 
-# Complex terrain
-./fdf maps/mars.fdf
-
-# Extra large maps
-./fdf maps/extra/MGDS_WHOLE_WORLD_OCEAN1_M.fdf
+# Extra large maps (723200 points)
+# Recommended to toggle to wireframe mode (R key) for better performance
+./fdf maps/extra/MGDS_WHOLE_WORLD_OCEAN1_XL.fdf
 ```
 
+<a name="controls"></a>
 ## 🎨 Controls
 
 ### Keyboard Controls
@@ -183,6 +189,7 @@ make re      # Recompile everything
 | **1** | Decrease Z-axis height |
 | **2** | Increase Z-axis height |
 
+<a name="map-format"></a>
 ## 📝 Map Format
 
 FDF uses `.fdf` files with a simple text format:
@@ -226,6 +233,7 @@ The project includes various test maps in the `maps/` directory:
 4. Z values can be positive, negative, or zero
 5. Optional: Add colors in hexadecimal format
 
+<a name="project-structure"></a>
 ## 📁 Project Structure
 
 ```
@@ -251,6 +259,7 @@ The project includes various test maps in the `maps/` directory:
 ```
 
 
+<a name="technical-notes"></a>
 ## 📚 Technical Notes
 
 ### Algorithm Highlights
@@ -259,11 +268,13 @@ The project includes various test maps in the `maps/` directory:
 - **Isometric Projection**: 45° rotation on Y-axis, 35° on X-axis
 - **Automatic Scaling**: Adapts to different map sizes and window dimensions
 
+<a name="known-issues"></a>
 ## 🐛 Known Issues
 
 - SDL2 internal allocations may show as "still reachable" in memory checkers (not project leaks)
 
-## � License
+<a name="license"></a>
+## 📄 License
 
 This project is part of 42 school curriculum. Feel free to use it for learning purposes.
 
