@@ -151,6 +151,7 @@ make re      # Recompile everything
 | **ESC** | Exit program |
 | **SPACE** | Toggle automatic rotation animation |
 | **C** | Reset view (zoom, position, rotation, and height) |
+| **R** | Toggle line rendering (show/hide wireframe) |
 | **I** | Isometric projection |
 | **O** | Parallel/Orthographic projection |
 | **P** | Perspective projection |
@@ -229,29 +230,24 @@ The project includes various test maps in the `maps/` directory:
 
 ```
 .
-├── fdf.h                    # Main header with structs and prototypes
-├── main.c                   # Entry point and initialization
-├── graphics.c               # SDL2 rendering functions
-├── hooks.c                  # Keyboard event handling
-├── projections.c            # Projection calculations
-├── rotations.c              # 3D rotation transformations
-├── moves.c                  # Movement and key actions
-├── map_utils.c              # Map parsing and validation
-├── z_utils.c                # Z-axis calculations and centering
-├── errors.c                 # Error handling
 ├── Makefile                 # Build configuration
+├── README.md                # This file
+├── srcs/                    # Source files
+│   ├── fdf.h                   # Main header with structs and prototypes
+│   ├── main.c                  # Entry point and initialization
+│   ├── graphics.c              # SDL2 rendering functions
+│   ├── hooks.c                 # Keyboard event handling
+│   ├── projections.c           # Projection calculations
+│   ├── rotations.c             # 3D rotation transformations
+│   ├── moves.c                 # Movement and key actions
+│   ├── map_utils.c             # Map parsing and validation
+│   ├── z_utils.c               # Z-axis calculations and centering
+│   └── errors.c                # Error handling
 ├── libft/                   # Custom C library
-│   ├── includes/           # Library headers
-│   ├── str/                # String functions
-│   ├── mem/                # Memory functions
-│   ├── printf/             # ft_printf implementation
-│   ├── gnl/                # Get Next Line
-│   └── ...                 # Other utility functions
-├── maps/                    # Sample map files
-│   ├── *.fdf              # Test maps
-│   └── extra/             # Large maps
-└── subjects/               # Project requirements
-    └── en.subject.pdf     # Original 42 assignment
+│   ├── printf/                 # ft_printf implementation
+│   ├── gnl/                    # Get Next Line to read map files
+│   └── ...                     # Other utility functions
+└── maps/                    # Sample map files
 ```
 
 

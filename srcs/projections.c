@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 12:03:18 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:36:49 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	project_x_lines(t_fdf *fdf);
 static void	project_y_lines(t_fdf *fdf);
-__attribute__((unused)) static void	project_points(t_fdf *fdf);
+static void	project_points(t_fdf *fdf);
 
 /* Scales figure according to screen size, INIT_SCALE value and user zoom */
 /* Uses the worst case scale (smaller one) between x and y */
 /* Writes projection directly in screen buffer (img) */
-/* function project_points(fdf) kept but not used */
 void	projection(t_fdf *fdf)
 {
 	fdf->scale_x = (WIDTH * INIT_SCALE * fdf->zoom) / (fdf->x_elem - 1);
@@ -28,8 +27,13 @@ void	projection(t_fdf *fdf)
 		fdf->scale = fdf->scale_x;
 	else
 		fdf->scale = fdf->scale_y;
-	project_x_lines(fdf);
-	project_y_lines(fdf);
+	if (fdf->render_only_points)
+		project_points(fdf);
+	else
+	{
+		project_x_lines(fdf);
+		project_y_lines(fdf);
+	}
 }
 
 /* Draws a line between each pair of horizontal points */

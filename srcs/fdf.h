@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 11:58:08 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:33:15 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 # include <math.h>
 # include <SDL2/SDL.h>						// for SDL library
 # include <SDL2/SDL2_gfxPrimitives.h>		// for SDL2_gfx graphics primitives
+# include <stdbool.h>						// for bool type
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -135,6 +136,7 @@ typedef struct s_fdf
 	int				offset_y;
 	float			user_scale_z;
 	int				num_scales_z;
+	bool			render_only_points;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer

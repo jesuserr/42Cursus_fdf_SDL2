@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 11:42:19 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:32:39 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->zoom /= INC_ZOOM;
 	else if (keycode == SDLK_c)
 		fdf->key.mwb_press = 1;
+	else if (keycode == SDLK_r)
+		fdf->render_only_points = !fdf->render_only_points;
 	return (0);
 }
 
