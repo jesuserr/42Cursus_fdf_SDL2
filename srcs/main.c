@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 20:32:09 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 21:11:02 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	init_win(t_fdf *fdf)
 	SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_BORDERLESS);
 	if (fdf->sdl.window == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
-	fdf->sdl.renderer = SDL_CreateRenderer(fdf->sdl.window, -1, 0);
+	fdf->sdl.renderer = SDL_CreateRenderer(fdf->sdl.window, -1, \
+	SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (fdf->sdl.renderer == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
 }
@@ -72,6 +73,7 @@ void	process_input_events_and_render(t_fdf *fdf)
 	SDL_RenderClear(fdf->sdl.renderer);
 	projection(fdf);
 	SDL_RenderPresent(fdf->sdl.renderer);
+	SDL_Delay(1000 / FPS_LIMIT);
 }
 
 int	main(int argc, char **argv)

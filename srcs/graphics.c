@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 12:00:23 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 21:18:22 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 
 /* Uses Bresenham's line algorithm (extended to work in any octant) */
 /* Pixels outside screen boundaries are not printed */
+// Since the line has always the same color, it would be more efficient to call
+// SDL_SetRenderDrawColor once here and not every time we render a pixel. It was
+// done but no real improvement was noticed, so it has been kept the same for
+// simplicity (we don't want to break nothing at this point).
 void	draw_line(t_line line, t_fdf *fdf)
 {
 	t_line_aux	line_aux;
