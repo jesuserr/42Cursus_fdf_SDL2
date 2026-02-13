@@ -254,7 +254,6 @@ The project includes various test maps in the `maps/` directory:
 │   └── errors.c                # Error handling
 ├── libft/                   # Custom C library
 │   ├── printf/                 # ft_printf implementation
-│   ├── gnl/                    # Get Next Line to read map files
 │   └── ...                     # Other utility functions
 └── maps/                    # Sample map files
 ```
