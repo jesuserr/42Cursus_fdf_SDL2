@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:10:39 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/11 22:53:02 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,8 @@ void	free_split(char **str)
 	free(str);
 }
 
-/* Used mainly to save lines of code and meet norm on some cases */
-void	free_and_exit(int error, char *ptr)
-{
-	free(ptr);
-	ft_error_handler(error);
-}
-
-/* Another free function to save space - Two previous functions combined */
-void	free_split_and_exit(char **str, int error, char *ptr)
+/* Another free function to save space */
+void	free_split_and_exit(char **str, int error, t_fdf *fdf)
 {
 	size_t	i;
 
@@ -56,7 +49,7 @@ void	free_split_and_exit(char **str, int error, char *ptr)
 	while (str[i])
 		free(str[i++]);
 	free(str);
-	free(ptr);
+	munmap(fdf->raw_map, fdf->raw_map_size);
 	ft_error_handler(error);
 }
 
@@ -69,7 +62,7 @@ void	free_map_and_exit(t_fdf *fdf, int error)
 	if (fdf->sdl.window)
 		SDL_DestroyWindow(fdf->sdl.window);
 	SDL_Quit();
-	free(fdf->raw_map);
+	munmap(fdf->raw_map, fdf->raw_map_size);
 	free(fdf->map);
 	ft_error_handler(error);
 }

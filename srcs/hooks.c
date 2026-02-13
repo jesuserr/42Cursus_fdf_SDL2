@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 19:57:27 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static int	key_released_aux(int keycode, t_fdf *fdf)
 
 int	close_window(t_fdf *fdf)
 {
-	free(fdf->raw_map);
+	munmap(fdf->raw_map, fdf->raw_map_size);
 	free(fdf->map);
 	if (fdf->sdl.renderer)
 		SDL_DestroyRenderer(fdf->sdl.renderer);

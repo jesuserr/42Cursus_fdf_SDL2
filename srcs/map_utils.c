@@ -6,57 +6,58 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:23:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 11:45:28 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	count_x_elem(char *line, int jump);
+static int	count_x_elem(char *line);
 static void	parse_map(t_fdf *fdf, char *line);
 static int	get_hex_color(char *color);
 
-/* Uses GNL to read the fdf map and counts the elements of the first row */
+// Uses 'mmap' to map the entire file into memory in one shot. Way more 
+// efficient than reading the file multiple times with GNL. File size is kept
+// for the 'munmap' function to know how many bytes to unmap when the program 
+// finishes. Also counts the number of elements in the first line to determine
+// later if the map is valid.
 char	*read_map(char *file, t_fdf *fdf)
 {
-	int		fd;
-	char	*line;
-	char	*map;
-	char	*backup_map;
+	int			fd;
+	char		*raw_map;
+	struct stat	file_stat;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		ft_error_handler(ERROR_FILE);
-	ft_printf ("%sReading Map..... ", BLUE);
-	line = get_next_line(fd);
-	if (!line)
-		ft_error_handler(ERROR_EMPTY);
-	fdf->x_elem = count_x_elem(line, 0);
-	map = ft_strdup("");
-	while (line != NULL)
+	if (fstat(fd, &file_stat) < 0 || file_stat.st_size == 0)
 	{
-		backup_map = map;
-		map = gnl_strjoin(map, line, 1);
-		free (line);
-		if (!map)
-			free_and_exit(ERROR_MEM, backup_map);
-		line = get_next_line(fd);
+		close(fd);
+		ft_error_handler(ERROR_FILE);
 	}
+	fdf->raw_map_size = file_stat.st_size;
+	ft_printf ("%sReading Map..... ", BLUE);
+	raw_map = mmap(NULL, fdf->raw_map_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	if (raw_map == MAP_FAILED)
+	{
+		close(fd);
+		ft_error_handler(ERROR_FILE);
+	}
+	fdf->x_elem = count_x_elem(raw_map);
 	close (fd);
-	return (map);
+	return (raw_map);
 }
 
-/* Returns the number of elements on a given line */
-/* Same function as the one used in ft_printf with modification */
-/* to deal with line feeds \n (var jump) */
-static int	count_x_elem(char *line, int jump)
+/* Returns the number of elements on a given line (checks until \n or \0) */
+/* Similar to function used in ft_split modified to use spaces as delimiters */
+static int	count_x_elem(char *line)
 {
 	int	flag;
 	int	n;
 
 	flag = 0;
 	n = 0;
-	while (*line)
+	while (*line && *line != '\n')
 	{
 		if (*line == ' ')
 			flag = 0;
@@ -67,8 +68,6 @@ static int	count_x_elem(char *line, int jump)
 		}
 		line++;
 	}
-	if (*(line - 2) == ' ' && jump == 0)
-		n--;
 	return (n);
 }
 
@@ -88,14 +87,14 @@ void	check_map(t_fdf *fdf)
 	{
 		line = split[fdf->y_elem++];
 		if (ft_strlen(line) != ft_strspn(line, ALLOWED_CHR)
-			|| count_x_elem(line, 1) != fdf->x_elem)
-			free_split_and_exit(split, ERROR_MAP, fdf->raw_map);
+			|| count_x_elem(line) != fdf->x_elem)
+			free_split_and_exit(split, ERROR_MAP, fdf);
 	}
 	if (fdf->y_elem < 2)
-		free_split_and_exit(split, ERROR_MAP, fdf->raw_map);
+		free_split_and_exit(split, ERROR_MAP, fdf);
 	fdf->map = malloc (sizeof(t_point) * fdf->y_elem * fdf->x_elem);
 	if (!fdf->map)
-		free_split_and_exit(split, ERROR_MEM, fdf->raw_map);
+		free_split_and_exit(split, ERROR_MEM, fdf);
 	i = 0;
 	ft_printf ("%sOK!\nParsing Map..... ", BLUE);
 	while (split[i])

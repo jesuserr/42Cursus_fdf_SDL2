@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:20 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 00:16:39 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:31:28 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	z_centering(t_fdf *fdf)
 	i = 0;
 	map_height = fdf->z_max - fdf->z_min;
 	fdf->scale_z = (-0.0004 * map_height) + 0.1044;
-	if (fdf->scale_z < 0.05)
-		fdf->scale_z = 0.05;
+	if (fdf->scale_z < 0.01)
+		fdf->scale_z = 0.01;
 	while (i < (fdf->x_elem * fdf->y_elem))
 	{
 		if (fdf->map[i].color == DEF_COLOR)

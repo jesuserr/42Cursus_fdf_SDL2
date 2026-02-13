@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 00:12:18 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/13 13:03:33 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
 **                              HEADERS
 */
-# include "libft/includes/get_next_line.h"
 # include "libft/includes/ft_printf.h"
 # include "libft/includes/libft.h"
 # include <fcntl.h>						// for open
@@ -67,6 +66,9 @@
 #  include <SDL2/SDL2_gfxPrimitives.h>	// for SDL2_gfx graph primitives (Linux)
 # endif
 # include <stdbool.h>					// for bool type
+# include <sys/stat.h>					// for fstat
+# include <sys/mman.h>					// for mmap/munmap
+# include <limits.h>					// for INT_MAX/INT_MIN
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -129,7 +131,8 @@ typedef struct s_sdl_window
 
 typedef struct s_fdf
 {
-	char			*raw_map;	
+	char			*raw_map;
+	size_t			raw_map_size;
 	int				x_elem;
 	int				y_elem;
 	int				z_max;
@@ -161,8 +164,7 @@ typedef struct s_fdf
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);
 void	free_split(char **str);
-void	free_and_exit(int error, char *ptr);
-void	free_split_and_exit(char **str, int error, char *ptr);
+void	free_split_and_exit(char **str, int error, t_fdf *fdf);
 void	free_map_and_exit(t_fdf *fdf, int error);
 
 /********************************* graphics.c *********************************/

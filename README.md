@@ -73,6 +73,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 
 ### Technical Features
 - **Optimized rendering**: Efficient Bresenham line drawing algorithm
+- **Fast map loading**: Uses `mmap()` instead of `get_next_line()` for dramatically improved file reading performance
 - **Large map support**: Can handle maps with thousands of points
 - **Memory management**: Clean allocation/deallocation with no leaks (except SDL2 library internal leaks)
 - **Error handling**: Robust validation for file format and content
