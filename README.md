@@ -4,6 +4,10 @@
 ![Grade](https://img.shields.io/badge/Grade-125%25-success)
 ![SDL2](https://img.shields.io/badge/SDL2-Powered-orange)
 
+<p align="center">
+  <img src="earth.png" alt="FDF Wireframe Rendering Example" width="800"/>
+</p>
+
 ## 📋 Table of Contents
 - [About](#about)
 - [From MiniLibX to SDL2](#from-minilibx-to-sdl2)
