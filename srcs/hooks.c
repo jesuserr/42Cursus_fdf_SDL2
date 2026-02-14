@@ -6,16 +6,17 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:42:30 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	key_pressed_aux(int keycode, t_fdf *fdf);
-static int	key_released_aux(int keycode, t_fdf *fdf);
+static void	key_pressed_aux(int keycode, t_fdf *fdf);
+static void	key_released_aux(int keycode, t_fdf *fdf);
+static void	close_window(t_fdf *fdf);
 
-int	key_pressed(int keycode, t_fdf *fdf)
+void	key_pressed(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_ESCAPE)
 		close_window(fdf);
@@ -41,10 +42,10 @@ int	key_pressed(int keycode, t_fdf *fdf)
 		fdf->key.up_press = 1;
 	else if (keycode == SDLK_i)
 		fdf->key.i_press = 1;
-	return (key_pressed_aux(keycode, fdf));
+	key_pressed_aux(keycode, fdf);
 }
 
-static int	key_pressed_aux(int keycode, t_fdf *fdf)
+static void	key_pressed_aux(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_o)
 		fdf->key.o_press = 1;
@@ -56,9 +57,9 @@ static int	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->key.one_press = 1;
 	else if (keycode == SDLK_2)
 		fdf->key.two_press = 1;
-	else if (keycode == SDLK_e)
+	else if (keycode == SDLK_e && fdf->zoom < ZOOM_MAX)
 		fdf->zoom *= INC_ZOOM;
-	else if (keycode == SDLK_d)
+	else if (keycode == SDLK_d && fdf->zoom > ZOOM_MIN)
 		fdf->zoom /= INC_ZOOM;
 	else if (keycode == SDLK_c)
 		fdf->key.mwb_press = 1;
@@ -66,10 +67,9 @@ static int	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->render_only_points = !fdf->render_only_points;
 	else if (keycode == SDLK_g)
 		fdf->render_color_gradient = !fdf->render_color_gradient;
-	return (0);
 }
 
-int	key_released(int keycode, t_fdf *fdf)
+void	key_released(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_q)
 		fdf->key.q_press = 0;
@@ -95,10 +95,10 @@ int	key_released(int keycode, t_fdf *fdf)
 		fdf->key.i_press = 0;
 	else if (keycode == SDLK_o)
 		fdf->key.o_press = 0;
-	return (key_released_aux(keycode, fdf));
+	key_released_aux(keycode, fdf);
 }
 
-static int	key_released_aux(int keycode, t_fdf *fdf)
+static void	key_released_aux(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_p)
 		fdf->key.p_press = 0;
@@ -110,10 +110,9 @@ static int	key_released_aux(int keycode, t_fdf *fdf)
 		fdf->key.two_press = 0;
 	else if (keycode == SDLK_c)
 		fdf->key.mwb_press = 0;
-	return (0);
 }
 
-int	close_window(t_fdf *fdf)
+static void	close_window(t_fdf *fdf)
 {
 	munmap(fdf->raw_map, fdf->raw_map_size);
 	free(fdf->map);
@@ -122,5 +121,5 @@ int	close_window(t_fdf *fdf)
 	if (fdf->sdl.window)
 		SDL_DestroyWindow(fdf->sdl.window);
 	SDL_Quit();
-	exit (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }

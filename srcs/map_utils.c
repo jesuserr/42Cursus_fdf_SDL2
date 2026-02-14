@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:23:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:58:21 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	count_x_elem(char *line)
 /* and that no line contains any forbidden characters (ALLOWED_CHR) */
 /* If there is only one line (no 3D element) -> finishes too */
 /* After map parsing, centers and scales Z coordinates, figure 100% centered */
-void	check_map(t_fdf *fdf)
+void	verify_and_parse_map(t_fdf *fdf)
 {
 	char	**split;
 	char	*line;

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 21:06:53 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:03:01 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,16 +173,20 @@ void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);
 void	draw_line(t_line line, t_fdf *fdf);
 
 /********************************** hooks.c ***********************************/
-int		key_pressed(int keycode, t_fdf *fdf);
-int		key_released(int keycode, t_fdf *fdf);
-int		close_window(t_fdf *fdf);
+void	key_pressed(int keycode, t_fdf *fdf);
+void	key_released(int keycode, t_fdf *fdf);
 
 /********************************* map_utils.c ********************************/
 char	*read_map(char *file, t_fdf *fdf);
-void	check_map(t_fdf *fdf);
+void	verify_and_parse_map(t_fdf *fdf);
+
+/********************************** mouse.c ***********************************/
+void	mouse_wheel_scrolled(SDL_MouseWheelEvent wheel, t_fdf *fdf);
+void	mouse_button_pressed(SDL_MouseButtonEvent button, t_fdf *fdf);
+void	mouse_button_released(SDL_MouseButtonEvent button, t_fdf *fdf);
 
 /********************************** moves.c ***********************************/
-void	apply_key_events(t_fdf *fdf);
+void	apply_input_events(t_fdf *fdf);
 
 /******************************** projections.c *******************************/
 void	projection(t_fdf *fdf);

@@ -53,7 +53,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 | `mlx_init()` | `SDL_Init()` |
 | `mlx_new_window()` | `SDL_CreateWindow()` |
 | `mlx_new_image()` + `mlx_get_data_addr()` | `SDL_CreateRenderer()` |
-| Keyboard hooks | SDL_Event polling |
+| Keyboard/mouse hooks | SDL_Event polling (keyboard + mouse) |
 
 <a name="features"></a>
 ## ✨ Features
@@ -66,9 +66,10 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 ### Interactive Controls
 - **3D Rotation**: Rotate on X, Y, and Z axes with keyboard controls
 - **Translation**: Move the model using arrow keys
-- **Zoom**: Adjust viewing distance (keyboard controls)
+- **Zoom**: Adjust viewing distance (keyboard and mouse wheel)
 - **Height scaling**: Adjust Z-axis elevation
 - **Smooth animation**: Automatic rotation mode
+- **Quick reset**: Restore default view with mouse wheel click
 
 ### Visual Features
 - **Color support**: Read colors from map files (hexadecimal format)
@@ -193,6 +194,14 @@ make re      # Recompile everything
 |-----|--------|
 | **1** | Decrease Z-axis height |
 | **2** | Increase Z-axis height |
+
+### Mouse Controls
+
+| Action | Effect |
+|--------|--------|
+| **Mouse wheel up** | Zoom in (same as E key) |
+| **Mouse wheel down** | Zoom out (same as D key) |
+| **Mouse wheel click** | Reset view (same as C key) |
 
 <a name="map-format"></a>
 ## 📝 Map Format

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 20:32:05 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:08:14 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	key_action_2(t_fdf *fdf);
 static void	key_action_3(t_fdf *fdf);
 static void	normalize_angles(t_fdf *fdf);
 
-void	apply_key_events(t_fdf *fdf)
+void	apply_input_events(t_fdf *fdf)
 {
 	key_action_1(fdf);
 	key_action_2(fdf);
@@ -103,6 +103,7 @@ static void	key_action_3(t_fdf *fdf)
 
 // In case angles are printed it will show always values between 0-359 degrees,
 // instead of negative or bigger than 360 values
+/* Keeps angles always between 0-359 degrees */
 static void	normalize_angles(t_fdf *fdf)
 {
 	if (fdf->angle_x >= 360)

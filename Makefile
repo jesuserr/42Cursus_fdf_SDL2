@@ -14,7 +14,7 @@ LIBFT_DIR = libft/
 
 NAME = fdf
 SRCS =  main.c map_utils.c errors.c z_utils.c rotations.c projections.c \
-		graphics.c moves.c hooks.c
+		graphics.c moves.c hooks.c mouse.c
 
 PATH_SRCS = ./srcs/
 PATH_OBJS = ./srcs/objs/
