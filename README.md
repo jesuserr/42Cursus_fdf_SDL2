@@ -75,6 +75,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Color support**: Read colors from map files (hexadecimal format)
 - **Multiple projections**: Switch between different viewing perspectives
 - **Real-time rendering**: All transformations update instantly
+- **FPS display**: Toggle frame rate counter for performance monitoring
 
 ### Technical Features
 - **Optimized rendering**: Efficient Bresenham line drawing algorithm
@@ -164,6 +165,7 @@ make re      # Recompile everything
 | **C** | Reset view (zoom, position, rotation, and height) |
 | **R** | Toggle line rendering (show/hide wireframe) |
 | **G** | Toggle gradient color interpolation |
+| **F** | Toggle FPS display (top-left corner) |
 | **I** | Isometric projection |
 | **O** | Parallel/Orthographic projection |
 | **P** | Perspective projection |

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 14:08:04 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/16 14:09:23 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->offset_y = INIT_OFFSET_Y;
 	fdf->user_scale_z = INC_ZOOM_Z;
 	fdf->render_color_gradient = true;
+	fdf->frame_time = 1000 / FPS_LIMIT;
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	verify_and_parse_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
@@ -47,10 +48,7 @@ void	iso_view(t_fdf *fdf)
 	fdf->angle_y = 35;
 	fdf->angle_z = 30;
 	rotate(fdf);
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-	SDL_RenderClear(fdf->sdl.renderer);
 	projection(fdf);
-	SDL_RenderPresent(fdf->sdl.renderer);
 }
 
 // Main loop function that processes all input events and renders a frame.
@@ -62,6 +60,7 @@ void	process_input_events_and_render(t_fdf *fdf)
 {
 	SDL_Event	event;
 
+	fdf->frame_start = SDL_GetTicks();
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_KEYDOWN)
@@ -75,14 +74,14 @@ void	process_input_events_and_render(t_fdf *fdf)
 		else if (event.type == SDL_MOUSEBUTTONUP)
 			mouse_button_released(event.button, fdf);
 	}
-	unrotate(fdf);
 	apply_input_events(fdf);
-	rotate(fdf);
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-	SDL_RenderClear(fdf->sdl.renderer);
 	projection(fdf);
-	SDL_RenderPresent(fdf->sdl.renderer);
-	SDL_Delay(1000 / FPS_LIMIT);
+	fdf->frame_time = SDL_GetTicks() - fdf->frame_start;
+	while (fdf->frame_time < (1000 / FPS_LIMIT))
+	{
+		SDL_Delay(1);
+		fdf->frame_time = SDL_GetTicks() - fdf->frame_start;
+	}
 }
 
 /*

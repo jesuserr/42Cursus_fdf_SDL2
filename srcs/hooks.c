@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 13:42:30 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:35:36 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static void	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->render_only_points = !fdf->render_only_points;
 	else if (keycode == SDLK_g)
 		fdf->render_color_gradient = !fdf->render_color_gradient;
+	else if (keycode == SDLK_f)
+		fdf->show_fps = !fdf->show_fps;
 }
 
 void	key_released(int keycode, t_fdf *fdf)
@@ -121,5 +123,6 @@ static void	close_window(t_fdf *fdf)
 	if (fdf->sdl.window)
 		SDL_DestroyWindow(fdf->sdl.window);
 	SDL_Quit();
+	ft_printf("Program terminated successfully.\n");
 	exit(EXIT_SUCCESS);
 }

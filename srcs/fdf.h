@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 14:03:01 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/16 23:57:31 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define HEX_GREEN		0x00FF00
 # define HEX_YELLOW		0xFFFF00
 # define HEX_RED		0xFF0000
+# define RGBA_WHITE		0xFFFFFFFF			// White color in RGBA format
 # define PI				3.141592654
 # define INIT_SCALE		0.75
 # define ROT_ANGLE		2
@@ -152,6 +153,9 @@ typedef struct s_fdf
 	int				num_scales_z;
 	bool			render_only_points;
 	bool			render_color_gradient;
+	bool			show_fps;
+	Uint32			frame_start;
+	Uint32			frame_time;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer

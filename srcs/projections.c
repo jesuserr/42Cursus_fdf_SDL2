@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/12 19:58:10 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/16 23:54:36 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 static void	project_x_lines(t_fdf *fdf);
 static void	project_y_lines(t_fdf *fdf);
 static void	project_points(t_fdf *fdf);
+static void	show_fps(t_fdf *fdf);
 
 /* Scales figure according to screen size, INIT_SCALE value and user zoom */
 /* Uses the worst case scale (smaller one) between x and y */
-/* Writes projection directly in screen buffer (img) */
+// Clears the renderer, draws either the full wireframe mesh or individual
+// points based on render mode, optionally displays FPS counter and presents
+// the final frame to the display buffer.
 void	projection(t_fdf *fdf)
 {
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+	SDL_RenderClear(fdf->sdl.renderer);
 	fdf->scale_x = (WIDTH * INIT_SCALE * fdf->zoom) / (fdf->x_elem - 1);
 	fdf->scale_y = (HEIGHT * INIT_SCALE * fdf->zoom) / (fdf->y_elem - 1);
 	if (fdf->scale_x < fdf->scale_y)
@@ -34,6 +39,9 @@ void	projection(t_fdf *fdf)
 		project_x_lines(fdf);
 		project_y_lines(fdf);
 	}
+	if (fdf->show_fps)
+		show_fps(fdf);
+	SDL_RenderPresent(fdf->sdl.renderer);
 }
 
 /* Draws a line between each pair of horizontal points */
@@ -81,7 +89,7 @@ static void	project_y_lines(t_fdf *fdf)
 			line.color0 = fdf->map[i].color_gradient;
 		else
 			line.color0 = fdf->map[i].color;
-		if ((i >= fdf->x_elem))
+		if (i >= fdf->x_elem)
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;
@@ -116,5 +124,22 @@ static void	project_points(t_fdf *fdf)
 				sdl_put_pixel(fdf, x, y, fdf->map[i].color);
 		}
 		i++;
+	}
+}
+
+// Displays the current FPS counter in the top-left corner of the screen.
+static void	show_fps(t_fdf *fdf)
+{
+	char		*fps;
+
+	fps = NULL;
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 65, 10});
+	stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
+	fps = ft_itoa(1000 / fdf->frame_time);
+	if (fps)
+	{
+		stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
+		free(fps);
 	}
 }

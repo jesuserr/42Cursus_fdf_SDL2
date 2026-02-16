@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 14:08:14 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/15 11:31:18 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ static void	normalize_angles(t_fdf *fdf);
 
 void	apply_input_events(t_fdf *fdf)
 {
+	unrotate(fdf);
 	key_action_1(fdf);
 	key_action_2(fdf);
 	key_action_3(fdf);
 	normalize_angles(fdf);
+	rotate(fdf);
 }
 
 /* Rotations and arrow keys movements */
