@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/16 23:54:36 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:39:16 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	project_x_lines(t_fdf *fdf)
 			line.color0 = fdf->map[i].color_gradient;
 		else
 			line.color0 = fdf->map[i].color;
-		if ((i % fdf->x_elem) != 0)
+		if ((i % fdf->x_elem) != 0 && is_line_visible(&line))
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;
@@ -89,7 +89,7 @@ static void	project_y_lines(t_fdf *fdf)
 			line.color0 = fdf->map[i].color_gradient;
 		else
 			line.color0 = fdf->map[i].color;
-		if (i >= fdf->x_elem)
+		if (i >= fdf->x_elem && is_line_visible(&line))
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;

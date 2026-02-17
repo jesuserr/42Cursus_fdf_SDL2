@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 21:18:22 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:03:58 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ static void	line_direction(t_line *line, t_line_aux *line_aux)
 		line_aux->sy = 1;
 	else
 		line_aux->sy = -1;
+}
+
+// Quick visibility check to skip drawing lines completely outside viewport
+// by rejecting cases where both endpoints are on the same side of screen.
+// Some diagonal lines outside the visible field won't be caught due to the
+// algorithm's simplicity but the performance gain is still significant.
+bool	is_line_visible(t_line *line)
+{
+	if (!((line->x0 < 0 && line->x1 < 0) || (line->y0 < 0 && line->y1 < 0) || \
+	(line->x0 >= WIDTH && line->x1 >= WIDTH) || \
+	(line->y0 >= HEIGHT && line->y1 >= HEIGHT)))
+		return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/16 23:57:31 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:39:08 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void	free_map_and_exit(t_fdf *fdf, int error);
 /********************************* graphics.c *********************************/
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);
 void	draw_line(t_line line, t_fdf *fdf);
+bool	is_line_visible(t_line *line);
 
 /********************************** hooks.c ***********************************/
 void	key_pressed(int keycode, t_fdf *fdf);
