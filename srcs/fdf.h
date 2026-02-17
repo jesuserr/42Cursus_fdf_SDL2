@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 11:32:45 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:36:22 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define INC_ZOOM_Z		1.1
 # define MAX_Z_SCALES	50
 # define FPS_LIMIT		60
+# define EMA_ALPHA		0.5				// Smoothing factor for FPS display
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -155,6 +156,7 @@ typedef struct s_fdf
 	bool			show_fps;
 	Uint32			frame_start;
 	Uint32			frame_time;
+	Uint32			smooth_frame_time;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer

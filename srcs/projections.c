@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 11:32:34 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:47:08 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,28 @@ static void	project_points(t_fdf *fdf)
 	}
 }
 
-// Displays the current FPS counter in the top-left corner of the screen.
+// Displays the current frames per second (FPS) in the top-left corner.
+// Uses exponential moving average (EMA) to smooth frame time fluctuations
+// and prevent jittery display. Draws a black background rectangle before
+// rendering the FPS text for better visibility.
+// EMA_ALPHA controls smoothing strength, 0.1 = very smooth, slow to respond to
+// changes // 0.5 = balanced // 0.9 = minimal smoothing, fast response.
 static void	show_fps(t_fdf *fdf)
 {
 	char		*fps;
 
-	fps = NULL;
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 65, 10});
-	stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
-	fps = ft_itoa(1000 / fdf->frame_time);
-	if (fps)
+	if (fdf->frame_time > 0 && fdf->smooth_frame_time > 0)
 	{
-		stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
-		free(fps);
+		fdf->smooth_frame_time = (EMA_ALPHA * fdf->frame_time) + \
+		((1 - EMA_ALPHA) * fdf->smooth_frame_time);
+		fps = ft_itoa(1000 / fdf->smooth_frame_time);
+		if (fps)
+		{
+			SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
+			SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 65, 10});
+			stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
+			stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
+			free(fps);
+		}
 	}
 }

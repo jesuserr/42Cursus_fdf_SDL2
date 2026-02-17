@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/16 14:09:23 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:36:22 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->user_scale_z = INC_ZOOM_Z;
 	fdf->render_color_gradient = true;
 	fdf->frame_time = 1000 / FPS_LIMIT;
+	fdf->smooth_frame_time = 1000 / FPS_LIMIT;
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	verify_and_parse_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
