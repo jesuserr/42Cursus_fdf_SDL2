@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 10:39:08 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:32:45 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ typedef struct s_line
 	int		y0;
 	int		x1;
 	int		y1;
-	int		color0;
-	int		color1;	
+	int		color0;	
 }	t_line;
 
 typedef struct s_line_aux

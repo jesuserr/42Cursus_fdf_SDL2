@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 10:39:16 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:32:34 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	project_x_lines(t_fdf *fdf)
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;
-		line.color1 = line.color0;
 		i++;
 	}
 }
@@ -93,7 +92,6 @@ static void	project_y_lines(t_fdf *fdf)
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;
-		line.color1 = line.color0;
 		i = i + fdf->x_elem;
 		if (i == ((fdf->x_elem * fdf->y_elem) + fdf->x_elem - 1))
 			break ;

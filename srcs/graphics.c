@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 11:03:58 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:40:51 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 
 /* Uses Bresenham's line algorithm (extended to work in any octant) */
 /* Pixels outside screen boundaries are not printed */
-// Since the line has always the same color, it would be more efficient to call
-// SDL_SetRenderDrawColor once here and not every time we render a pixel. It was
-// done but no real improvement was noticed, so it has been kept the same for
-// simplicity (we don't want to break nothing at this point).
+// Since line is composed by just one color, SDL_SetRenderDrawColor is called
+// just once here and not every time we render a pixel.
 void	draw_line(t_line line, t_fdf *fdf)
 {
 	t_line_aux	line_aux;
 
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, (line.color0 >> 16) & 0xFF, \
+	(line.color0 >> 8) & 0xFF, line.color0 & 0xFF, 255);
 	line_direction (&line, &line_aux);
 	line_aux.dx = abs(line.x1 - line.x0);
 	line_aux.dy = -abs(line.y1 - line.y0);
@@ -44,7 +44,7 @@ void	draw_line(t_line line, t_fdf *fdf)
 	while (!(line.x0 == line.x1 && line.y0 == line.y1))
 	{
 		if (line.x0 >= 0 && line.y0 >= 0 && line.x0 < WIDTH && line.y0 < HEIGHT)
-			sdl_put_pixel(fdf, line.x0, line.y0, line.color0);
+			SDL_RenderDrawPoint(fdf->sdl.renderer, line.x0, line.y0);
 		if ((2 * line_aux.error) >= line_aux.dy)
 		{
 			line_aux.error = line_aux.error + line_aux.dy;
