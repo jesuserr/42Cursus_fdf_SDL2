@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 16:36:22 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:53:28 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define ERROR_MAP			4
 # define ERROR_SDL			5
 
-# define WIDTH			1200
-# define HEIGHT			900
+# define WIDTH			1920
+# define HEIGHT			1080
 # define ALLOWED_CHR	"-0123456789 ,xABCDEFabcdef"
 # define DEF_COLOR		0xf26e04
 # define HEX_BLUE		0x0000FF
@@ -51,6 +51,7 @@
 # define INC_ZOOM_Z		1.1
 # define MAX_Z_SCALES	50
 # define FPS_LIMIT		60
+# define FPS_TRANSP		125				// Alpha value for FPS background
 # define EMA_ALPHA		0.5				// Smoothing factor for FPS display
 
 /*
@@ -154,6 +155,7 @@ typedef struct s_fdf
 	bool			render_only_points;
 	bool			render_color_gradient;
 	bool			show_fps;
+	bool			running;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
@@ -172,6 +174,7 @@ void	ft_error_handler(int error);
 void	free_split(char **str);
 void	free_split_and_exit(char **str, int error, t_fdf *fdf);
 void	free_map_and_exit(t_fdf *fdf, int error);
+void	release_resources(t_fdf *fdf);
 
 /********************************* graphics.c *********************************/
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);

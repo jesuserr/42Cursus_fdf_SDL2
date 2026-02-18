@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/16 16:35:36 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:30:30 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	key_pressed_aux(int keycode, t_fdf *fdf);
 static void	key_released_aux(int keycode, t_fdf *fdf);
-static void	close_window(t_fdf *fdf);
 
 void	key_pressed(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_ESCAPE)
-		close_window(fdf);
+		fdf->running = false;
 	else if (keycode == SDLK_q)
 		fdf->key.q_press = 1;
 	else if (keycode == SDLK_w)
@@ -112,17 +111,4 @@ static void	key_released_aux(int keycode, t_fdf *fdf)
 		fdf->key.two_press = 0;
 	else if (keycode == SDLK_c)
 		fdf->key.mwb_press = 0;
-}
-
-static void	close_window(t_fdf *fdf)
-{
-	munmap(fdf->raw_map, fdf->raw_map_size);
-	free(fdf->map);
-	if (fdf->sdl.renderer)
-		SDL_DestroyRenderer(fdf->sdl.renderer);
-	if (fdf->sdl.window)
-		SDL_DestroyWindow(fdf->sdl.window);
-	SDL_Quit();
-	ft_printf("Program terminated successfully.\n");
-	exit(EXIT_SUCCESS);
 }

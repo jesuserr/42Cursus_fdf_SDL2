@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:10:39 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 12:46:46 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:32:12 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ void	free_split_and_exit(char **str, int error, t_fdf *fdf)
 /* the SDL init */
 void	free_map_and_exit(t_fdf *fdf, int error)
 {
+	release_resources(fdf);
+	ft_error_handler(error);
+}
+
+void	release_resources(t_fdf *fdf)
+{
+	munmap(fdf->raw_map, fdf->raw_map_size);
+	free(fdf->map);
 	if (fdf->sdl.renderer)
 		SDL_DestroyRenderer(fdf->sdl.renderer);
 	if (fdf->sdl.window)
 		SDL_DestroyWindow(fdf->sdl.window);
 	SDL_Quit();
-	munmap(fdf->raw_map, fdf->raw_map_size);
-	free(fdf->map);
-	ft_error_handler(error);
 }

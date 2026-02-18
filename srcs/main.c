@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 16:36:22 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:06:41 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->render_color_gradient = true;
 	fdf->frame_time = 1000 / FPS_LIMIT;
 	fdf->smooth_frame_time = 1000 / FPS_LIMIT;
+	fdf->running = true;
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	verify_and_parse_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
@@ -99,6 +100,9 @@ int	main(int argc, char **argv)
 	init_map(argv[1], &fdf);
 	init_win(&fdf);
 	iso_view(&fdf);
-	while (1)
+	while (fdf.running)
 		process_input_events_and_render(&fdf);
+	release_resources(&fdf);
+	ft_printf("Program terminated successfully.\n");
+	return (EXIT_SUCCESS);
 }

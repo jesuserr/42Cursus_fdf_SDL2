@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 16:47:08 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:55:35 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,9 @@ static void	show_fps(t_fdf *fdf)
 		fps = ft_itoa(1000 / fdf->smooth_frame_time);
 		if (fps)
 		{
-			SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-			SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 65, 10});
+			SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+			SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 60, 10});
 			stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
 			stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
 			free(fps);
