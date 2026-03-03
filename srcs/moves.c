@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/15 11:31:18 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:01:45 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	key_action_2(t_fdf *fdf)
 		fdf->offset_x = 0;
 		fdf->offset_y = 0;
 		fdf->angle_z = 0;
-		recover_height(fdf);
 	}
 	if (fdf->key.i_press == 1)
 	{
@@ -83,7 +82,7 @@ static void	key_action_2(t_fdf *fdf)
 /* Three-axxis rotation at the same time */
 static void	key_action_3(t_fdf *fdf)
 {
-	if (fdf->key.bar_press == 1)
+	if (fdf->key.bar_press)
 	{
 		fdf->angle_x -= THREE_ROT_ANG;
 		fdf->angle_y += THREE_ROT_ANG;

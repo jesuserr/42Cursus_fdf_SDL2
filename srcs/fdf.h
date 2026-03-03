@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/18 11:53:28 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:48:04 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_keys
 	int		i_press;
 	int		o_press;
 	int		p_press;
-	int		bar_press;
+	bool	bar_press;
 	int		mwb_press;
 }	t_keys;
 

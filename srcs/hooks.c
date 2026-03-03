@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/18 10:30:30 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:42:07 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	key_pressed_aux(int keycode, t_fdf *fdf)
 	else if (keycode == SDLK_p)
 		fdf->key.p_press = 1;
 	else if (keycode == SDLK_SPACE)
-		fdf->key.bar_press = 1;
+		fdf->key.bar_press = !fdf->key.bar_press;
 	else if (keycode == SDLK_1)
 		fdf->key.one_press = 1;
 	else if (keycode == SDLK_2)
@@ -103,8 +103,6 @@ static void	key_released_aux(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_p)
 		fdf->key.p_press = 0;
-	else if (keycode == SDLK_SPACE)
-		fdf->key.bar_press = 0;
 	else if (keycode == SDLK_1)
 		fdf->key.one_press = 0;
 	else if (keycode == SDLK_2)
