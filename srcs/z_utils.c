@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:20 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/13 10:31:28 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/06 19:17:00 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,18 @@ void	recover_height(t_fdf *fdf)
 			fdf->num_scales_z++;
 		}
 	}
+}
+
+void	reverse_height(t_fdf *fdf)
+{
+	int64_t	i;
+
+	i = 0;
+	while (i < (fdf->x_elem * fdf->y_elem))
+	{
+		fdf->map[i].z = -fdf->map[i].z;
+		i++;
+	}
+	fdf->reverse_z = false;
+	fdf->z_is_reversed = !fdf->z_is_reversed;
 }

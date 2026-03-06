@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/03 13:01:45 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/06 18:44:42 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,11 @@ static void	key_action_3(t_fdf *fdf)
 		fdf->angle_y = 35;
 		fdf->angle_z = 30;
 		recover_height(fdf);
+		if (fdf->z_is_reversed)
+			reverse_height(fdf);
 	}
+	if (fdf->reverse_z)
+		reverse_height(fdf);
 }
 
 // In case angles are printed it will show always values between 0-359 degrees,

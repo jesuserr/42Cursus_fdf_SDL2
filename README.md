@@ -196,6 +196,7 @@ make re      # Recompile everything
 |-----|--------|
 | **1** | Decrease Z-axis height |
 | **2** | Increase Z-axis height |
+| **V** | Reverse Z-axis (flip terrain upside down) |
 
 ### Mouse Controls
 

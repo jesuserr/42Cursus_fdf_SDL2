@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/03 12:42:07 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/06 16:40:55 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->render_color_gradient = !fdf->render_color_gradient;
 	else if (keycode == SDLK_f)
 		fdf->show_fps = !fdf->show_fps;
+	else if (keycode == SDLK_v && !fdf->reverse_z)
+		fdf->reverse_z = true;
 }
 
 void	key_released(int keycode, t_fdf *fdf)
@@ -109,4 +111,6 @@ static void	key_released_aux(int keycode, t_fdf *fdf)
 		fdf->key.two_press = 0;
 	else if (keycode == SDLK_c)
 		fdf->key.mwb_press = 0;
+	else if (keycode == SDLK_v)
+		fdf->reverse_z = false;
 }

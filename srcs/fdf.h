@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/03 12:48:04 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/06 18:44:04 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ typedef struct s_fdf
 	bool			render_color_gradient;
 	bool			show_fps;
 	bool			running;
+	bool			reverse_z;
+	bool			z_is_reversed;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
@@ -208,5 +210,6 @@ void	unrotate(t_fdf *fdf);
 void	z_centering(t_fdf *fdf);
 void	modify_height(t_fdf *fdf);
 void	recover_height(t_fdf *fdf);
+void	reverse_height(t_fdf *fdf);
 
 #endif
