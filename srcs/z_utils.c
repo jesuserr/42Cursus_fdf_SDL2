@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:20 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/06 19:17:00 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:32:39 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,25 @@ void	z_centering(t_fdf *fdf)
 }
 
 // Returns a color based on normalized height (0.0 to 1.0) using a gradient of
-// 5 colors: Blue->Cyan->Green->Yellow->Red. Determines which segment the height
-// falls into (0 to 3), calculates the offset within that segment and then uses
-// linear interpolation to blend the RGB components of the two adjacent colors,
-// creating smooth color transitions across the height range.
+// 10 colors: Abyss->Ocean->Sea->Coast->Lowland->Plains->Meadow->Hills->
+// Mountain->Snow. Determines which segment the height falls into (from 0 to 8),
+// calculates the offset linear interpolation to blend the RGB components of the
+// two adjacent colors, creating smooth color transitions across the height
+// range.
 static int	get_height_color(float normalized)
 {
-	int		colors[5];
+	int		colors[10];
 	int		rgb[3];
 	int		segment;
 	float	offset;
 
-	ft_memcpy(colors, (int [5]){HEX_BLUE, HEX_CYAN, HEX_GREEN, HEX_YELLOW, \
-	HEX_RED}, sizeof(int) * 5);
-	segment = (int)(normalized * 4);
-	if (segment >= 4)
-		return (colors[4]);
-	offset = (normalized * 4) - segment;
+	ft_memcpy(colors, (int [10]){HEX_ABYSS, HEX_OCEAN, HEX_SEA, HEX_COAST, \
+	HEX_LOWLAND, HEX_PLAINS, HEX_MEADOW, HEX_HILLS, HEX_MOUNTAIN, HEX_PEAKS}, \
+	sizeof(int) * 10);
+	segment = (int)(normalized * 9);
+	if (segment >= 9)
+		return (colors[9]);
+	offset = (normalized * 9) - segment;
 	rgb[0] = ((colors[segment] >> 16) & 0xFF) * (1 - offset) + \
 	((colors[segment + 1] >> 16) & 0xFF) * offset;
 	rgb[1] = ((colors[segment] >> 8) & 0xFF) * (1 - offset) + \

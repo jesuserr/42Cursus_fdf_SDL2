@@ -284,6 +284,14 @@ The project includes various test maps in the `maps/` directory:
 - **Isometric Projection**: 45° rotation on Y-axis, 35° on X-axis
 - **Automatic Scaling**: Adapts to different map sizes and window dimensions
 
+### Hypsometric Color Palette
+When map points have no explicit color, elevation is rendered using a **10-stop hypsometric tint gradient** inspired by the color conventions used in physical cartography. The palette covers the full elevation range including below-sea-level altitudes:
+
+- **Stops 0–3**: Deep navy → ocean blue → mid blue → coastal blue (water / bathymetry)
+- **Stops 4–6**: Dark green → forest green → light green (lowlands and plains)
+- **Stops 7–8**: Amber yellow → terra cotta (hills and mountains)
+- **Stop 9**: Near-white (snow-capped peaks)
+
 ### Code Standards
 This SDL2 version maintains **full compliance with 42's Norminette** coding standard, which explains some unconventional coding patterns that may be encountered, such as:
 - Function length limited to 25 lines and no more than 5 functions per file

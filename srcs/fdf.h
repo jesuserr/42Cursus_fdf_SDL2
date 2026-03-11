@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/06 18:44:04 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/11 18:17:52 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,16 @@
 # define HEIGHT			1080
 # define ALLOWED_CHR	"-0123456789 ,xABCDEFabcdef"
 # define DEF_COLOR		0xf26e04
-# define HEX_BLUE		0x0000FF
-# define HEX_CYAN		0x00FFFF
-# define HEX_GREEN		0x00FF00
-# define HEX_YELLOW		0xFFFF00
-# define HEX_RED		0xFF0000
+# define HEX_ABYSS		0x08306B			// Deep navy (abyssal depths)
+# define HEX_OCEAN		0x2166AC			// Ocean blue (deep water)
+# define HEX_SEA		0x4393C3			// Mid-depth blue
+# define HEX_COAST		0x92C5DE			// Coastal/shallow water
+# define HEX_LOWLAND	0x006837			// Dark forest green (sea level)
+# define HEX_PLAINS		0x1A9641			// Forest green (lowlands)
+# define HEX_MEADOW		0x78C679			// Light green (plains)
+# define HEX_HILLS		0xFECC5C			// Amber yellow (hills)
+# define HEX_MOUNTAIN	0xBD4A0E			// Terra cotta (mountains)
+# define HEX_PEAKS		0xF5F5F5			// Snow white (peaks)
 # define RGBA_WHITE		0xFFFFFFFF			// White color in RGBA format
 # define PI				3.141592654
 # define INIT_SCALE		0.75
