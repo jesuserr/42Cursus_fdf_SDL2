@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/17 11:40:51 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/13 00:10:42 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,20 @@
 
 static void	line_direction(t_line *line, t_line_aux *line_aux);
 
+// Writes a single pixel directly to the locked texture buffer in ARGB8888
+// format. Bounds limits are checked by caller. Transparency set to 0xFF (255).
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 {
-	Uint8	r;
-	Uint8	g;
-	Uint8	b;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, r, g, b, 255);
-	SDL_RenderDrawPoint(fdf->sdl.renderer, x, y);
+	fdf->sdl.argb_pixels[(y * fdf->sdl.pixels_per_row) + x] = \
+	color | 0xFF000000;
 }
 
 /* Uses Bresenham's line algorithm (extended to work in any octant) */
 /* Pixels outside screen boundaries are not printed */
-// Since line is composed by just one color, SDL_SetRenderDrawColor is called
-// just once here and not every time we render a pixel.
 void	draw_line(t_line line, t_fdf *fdf)
 {
 	t_line_aux	line_aux;
 
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, (line.color0 >> 16) & 0xFF, \
-	(line.color0 >> 8) & 0xFF, line.color0 & 0xFF, 255);
 	line_direction (&line, &line_aux);
 	line_aux.dx = abs(line.x1 - line.x0);
 	line_aux.dy = -abs(line.y1 - line.y0);
@@ -44,7 +35,7 @@ void	draw_line(t_line line, t_fdf *fdf)
 	while (!(line.x0 == line.x1 && line.y0 == line.y1))
 	{
 		if (line.x0 >= 0 && line.y0 >= 0 && line.x0 < WIDTH && line.y0 < HEIGHT)
-			SDL_RenderDrawPoint(fdf->sdl.renderer, line.x0, line.y0);
+			sdl_put_pixel(fdf, line.x0, line.y0, line.color0);
 		if ((2 * line_aux.error) >= line_aux.dy)
 		{
 			line_aux.error = line_aux.error + line_aux.dy;

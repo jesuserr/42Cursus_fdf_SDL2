@@ -78,7 +78,9 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **FPS display**: Toggle frame rate counter for performance monitoring
 
 ### Technical Features
-- **Optimized rendering**: Efficient Bresenham line drawing algorithm
+- **Optimized rendering**: Direct texture memory access instead of individual pixel API calls for dramatic performance improvement  
+- **Hardware acceleration**: SDL2 texture-based rendering with single GPU transfer per frame
+- **Efficient algorithms**: Bresenham line drawing with direct pixel buffer manipulation
 - **Fast map loading**: Uses `mmap()` instead of `get_next_line()` for dramatically improved file reading performance
 - **Large map support**: Can handle maps with thousands of points
 - **Memory management**: Clean allocation/deallocation with no leaks (except SDL2 library internal leaks)
@@ -279,7 +281,7 @@ The project includes various test maps in the `maps/` directory:
 ## 📚 Technical Notes
 
 ### Algorithm Highlights
-- **Bresenham's Line Algorithm**: Efficient rasterization with integer arithmetic
+- **Bresenham's Line Algorithm**: Efficient rasterization with integer arithmetic, optimized for direct pixel buffer access
 - **3D Rotation Matrices**: Separate X, Y, Z axis rotations
 - **Isometric Projection**: 45° rotation on Y-axis, 35° on X-axis
 - **Automatic Scaling**: Adapts to different map sizes and window dimensions

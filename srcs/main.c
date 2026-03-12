@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/18 11:06:41 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/12 23:53:02 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,16 @@ void	init_win(t_fdf *fdf)
 	SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (fdf->sdl.renderer == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
+	fdf->sdl.texture = SDL_CreateTexture(fdf->sdl.renderer, \
+	SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+	if (fdf->sdl.texture == NULL)
+		free_map_and_exit(fdf, ERROR_SDL);
 }
 
+// Isometric view shown at program start. FPS display enabled by default.
 void	iso_view(t_fdf *fdf)
 {
+	fdf->show_fps = true;
 	fdf->angle_x = 45;
 	fdf->angle_y = 35;
 	fdf->angle_z = 30;

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:17:52 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/13 00:09:48 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,12 @@ typedef struct s_keys
 
 typedef struct s_sdl_window
 {
-	SDL_Window		*window;
-	SDL_Renderer	*renderer;
+	SDL_Window		*window;			// SDL window
+	SDL_Renderer	*renderer;			// SDL renderer for drawing
+	SDL_Texture		*texture;			// SDL texture for pixel manipulation
+	uint32_t		*argb_pixels;		// Pointer for direct pixel access
+	int				pitch;				// Length of a row of pixels (in bytes)
+	int				pixels_per_row;		// Length of a row of pixels (in pixels)
 }	t_sdl_window;
 
 typedef struct s_fdf

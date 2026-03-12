@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/18 10:55:35 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/13 00:09:24 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ static void	show_fps(t_fdf *fdf);
 
 /* Scales figure according to screen size, INIT_SCALE value and user zoom */
 /* Uses the worst case scale (smaller one) between x and y */
-// Clears the renderer, draws either the full wireframe mesh or individual
-// points based on render mode, optionally displays FPS counter and presents
-// the final frame to the display buffer.
+// Locks the texture for direct pixel access, clears it, calculates scaling
+// factor and draws either the full wireframe mesh or individual points based
+// on render mode. Finally, unlocks the texture, copies it to the renderer and
+// presents the final frame to the display buffer.
 void	projection(t_fdf *fdf)
 {
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, 255);
-	SDL_RenderClear(fdf->sdl.renderer);
+	if (SDL_LockTexture(fdf->sdl.texture, NULL, (void **)&fdf->sdl.argb_pixels, \
+	&fdf->sdl.pitch) != 0)
+		free_map_and_exit(fdf, ERROR_SDL);
+	memset(fdf->sdl.argb_pixels, 0, fdf->sdl.pitch * HEIGHT);
+	fdf->sdl.pixels_per_row = fdf->sdl.pitch / 4;
 	fdf->scale_x = (WIDTH * INIT_SCALE * fdf->zoom) / (fdf->x_elem - 1);
 	fdf->scale_y = (HEIGHT * INIT_SCALE * fdf->zoom) / (fdf->y_elem - 1);
 	if (fdf->scale_x < fdf->scale_y)
@@ -39,6 +43,9 @@ void	projection(t_fdf *fdf)
 		project_x_lines(fdf);
 		project_y_lines(fdf);
 	}
+	SDL_UnlockTexture(fdf->sdl.texture);
+	fdf->sdl.argb_pixels = NULL;
+	SDL_RenderCopy(fdf->sdl.renderer, fdf->sdl.texture, NULL, NULL);
 	if (fdf->show_fps)
 		show_fps(fdf);
 	SDL_RenderPresent(fdf->sdl.renderer);
@@ -148,6 +155,7 @@ static void	show_fps(t_fdf *fdf)
 			stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
 			stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
 			free(fps);
+			SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
 		}
 	}
 }

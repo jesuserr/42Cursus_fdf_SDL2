@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:10:39 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/18 10:32:12 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/12 13:37:58 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	release_resources(t_fdf *fdf)
 {
 	munmap(fdf->raw_map, fdf->raw_map_size);
 	free(fdf->map);
+	if (fdf->sdl.texture)
+		SDL_DestroyTexture(fdf->sdl.texture);
 	if (fdf->sdl.renderer)
 		SDL_DestroyRenderer(fdf->sdl.renderer);
 	if (fdf->sdl.window)
