@@ -6,13 +6,14 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/06 16:40:55 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/20 22:15:29 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void	key_pressed_aux(int keycode, t_fdf *fdf);
+static void	key_pressed_aux_2(int keycode, t_fdf *fdf);
 static void	key_released_aux(int keycode, t_fdf *fdf);
 
 void	key_pressed(int keycode, t_fdf *fdf)
@@ -70,6 +71,13 @@ static void	key_pressed_aux(int keycode, t_fdf *fdf)
 		fdf->show_fps = !fdf->show_fps;
 	else if (keycode == SDLK_v && !fdf->reverse_z)
 		fdf->reverse_z = true;
+	key_pressed_aux_2(keycode, fdf);
+}
+
+static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
+{
+	if (keycode == SDLK_F12)
+		fdf->take_screenshot = true;
 }
 
 void	key_released(int keycode, t_fdf *fdf)

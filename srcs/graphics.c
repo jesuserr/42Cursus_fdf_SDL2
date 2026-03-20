@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/13 00:10:42 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/20 23:09:19 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,37 @@ bool	is_line_visible(t_line *line)
 	(line->y0 >= HEIGHT && line->y1 >= HEIGHT)))
 		return (true);
 	return (false);
+}
+
+/* Builds a BMP filename using shot_nbr and saves current ARGB frame buffer. */
+/* Wraps shot_nbr in range [0..99] to keep predictable screenshot names. */
+/* Uses an SDL surface created from locked texture pixels (no pixel copy). */
+/* Frees temporary resources and resets screenshot flag after save attempt. */
+void	take_screenshot(t_fdf *fdf)
+{
+	char			filename[20];
+	char			*shot_nbr_str;
+	SDL_Surface		*surface;
+
+	surface = SDL_CreateRGBSurfaceWithFormatFrom(fdf->sdl.argb_pixels, \
+	WIDTH, HEIGHT, 32, fdf->sdl.pitch, SDL_PIXELFORMAT_ARGB8888);
+	if (surface == NULL)
+		free_map_and_exit(fdf, ERROR_SDL);
+	ft_strlcpy(filename, "screenshot_", sizeof(filename));
+	shot_nbr_str = ft_itoa(fdf->shot_nbr);
+	if (shot_nbr_str)
+	{
+		ft_strlcat(filename, shot_nbr_str, sizeof(filename));
+		free(shot_nbr_str);
+		ft_strlcat(filename, ".bmp", sizeof(filename));
+		if (SDL_SaveBMP(surface, filename) != 0)
+			ft_printf("%sScreenshot failed: %s\n", RED, SDL_GetError());
+		else
+			ft_printf("%s%s saved\n", BLUE, filename);
+		fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;
+	}
+	else
+		ft_printf("%sFailed to generate screenshot filename\n", RED);
+	SDL_FreeSurface(surface);
+	fdf->take_screenshot = false;
 }

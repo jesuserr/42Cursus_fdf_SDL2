@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/13 00:09:24 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/20 22:14:56 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	projection(t_fdf *fdf)
 	fdf->sdl.pixels_per_row = fdf->sdl.pitch / 4;
 	fdf->scale_x = (WIDTH * INIT_SCALE * fdf->zoom) / (fdf->x_elem - 1);
 	fdf->scale_y = (HEIGHT * INIT_SCALE * fdf->zoom) / (fdf->y_elem - 1);
+	fdf->scale = fdf->scale_y;
 	if (fdf->scale_x < fdf->scale_y)
 		fdf->scale = fdf->scale_x;
-	else
-		fdf->scale = fdf->scale_y;
 	if (fdf->render_only_points)
 		project_points(fdf);
 	else
@@ -43,6 +42,8 @@ void	projection(t_fdf *fdf)
 		project_x_lines(fdf);
 		project_y_lines(fdf);
 	}
+	if (fdf->take_screenshot)
+		take_screenshot(fdf);
 	SDL_UnlockTexture(fdf->sdl.texture);
 	fdf->sdl.argb_pixels = NULL;
 	SDL_RenderCopy(fdf->sdl.renderer, fdf->sdl.texture, NULL, NULL);

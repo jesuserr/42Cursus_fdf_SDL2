@@ -76,6 +76,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Multiple projections**: Switch between different viewing perspectives
 - **Real-time rendering**: All transformations update instantly
 - **FPS display**: Toggle frame rate counter for performance monitoring
+- **Screenshot capture**: Save the current render to an image with F12
 
 ### Technical Features
 - **Optimized rendering**: Direct texture memory access instead of individual pixel API calls for dramatic performance improvement  
@@ -168,6 +169,7 @@ make re      # Recompile everything
 | **R** | Toggle line rendering (show/hide wireframe) |
 | **G** | Toggle gradient color interpolation |
 | **F** | Toggle FPS display (top-left corner) |
+| **F12** | Take a screenshot |
 | **I** | Isometric projection |
 | **O** | Parallel/Orthographic projection |
 | **P** | Perspective projection |

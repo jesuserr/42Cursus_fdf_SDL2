@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/13 00:09:48 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/20 23:07:22 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define FPS_LIMIT		60
 # define FPS_TRANSP		125				// Alpha value for FPS background
 # define EMA_ALPHA		0.5				// Smoothing factor for FPS display
+# define NBR_SHOTS		50				// Max number of screenshots (255 limit)
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -167,9 +168,11 @@ typedef struct s_fdf
 	bool			running;
 	bool			reverse_z;
 	bool			z_is_reversed;
+	bool			take_screenshot;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
+	Uint8			shot_nbr;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer
@@ -191,6 +194,7 @@ void	release_resources(t_fdf *fdf);
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);
 void	draw_line(t_line line, t_fdf *fdf);
 bool	is_line_visible(t_line *line);
+void	take_screenshot(t_fdf *fdf);
 
 /********************************** hooks.c ***********************************/
 void	key_pressed(int keycode, t_fdf *fdf);
