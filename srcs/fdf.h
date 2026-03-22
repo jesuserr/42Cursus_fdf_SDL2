@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/20 23:07:22 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/22 13:44:36 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct s_fdf
 	bool			reverse_z;
 	bool			z_is_reversed;
 	bool			take_screenshot;
+	char			*shot_nbr_str;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;

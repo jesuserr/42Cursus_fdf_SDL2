@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/20 23:09:19 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/22 13:45:41 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ bool	is_line_visible(t_line *line)
 void	take_screenshot(t_fdf *fdf)
 {
 	char			filename[20];
-	char			*shot_nbr_str;
 	SDL_Surface		*surface;
 
 	surface = SDL_CreateRGBSurfaceWithFormatFrom(fdf->sdl.argb_pixels, \
@@ -89,11 +88,11 @@ void	take_screenshot(t_fdf *fdf)
 	if (surface == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
 	ft_strlcpy(filename, "screenshot_", sizeof(filename));
-	shot_nbr_str = ft_itoa(fdf->shot_nbr);
-	if (shot_nbr_str)
+	fdf->shot_nbr_str = ft_itoa(fdf->shot_nbr);
+	if (fdf->shot_nbr_str)
 	{
-		ft_strlcat(filename, shot_nbr_str, sizeof(filename));
-		free(shot_nbr_str);
+		ft_strlcat(filename, fdf->shot_nbr_str, sizeof(filename));
+		free(fdf->shot_nbr_str);
 		ft_strlcat(filename, ".bmp", sizeof(filename));
 		if (SDL_SaveBMP(surface, filename) != 0)
 			ft_printf("%sScreenshot failed: %s\n", RED, SDL_GetError());
@@ -105,4 +104,5 @@ void	take_screenshot(t_fdf *fdf)
 		ft_printf("%sFailed to generate screenshot filename\n", RED);
 	SDL_FreeSurface(surface);
 	fdf->take_screenshot = false;
+	memset(fdf->sdl.argb_pixels, 200, fdf->sdl.pitch * HEIGHT);
 }

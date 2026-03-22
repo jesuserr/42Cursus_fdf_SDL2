@@ -52,8 +52,11 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 |----------|------|
 | `mlx_init()` | `SDL_Init()` |
 | `mlx_new_window()` | `SDL_CreateWindow()` |
-| `mlx_new_image()` + `mlx_get_data_addr()` | `SDL_CreateRenderer()` |
-| Keyboard/mouse hooks | SDL_Event polling (keyboard + mouse) |
+| `mlx_new_image()` | `SDL_CreateRenderer()` |
+| `mlx_get_data_addr()` | `SDL_CreateTexture()` (direct texture access) |
+| `mlx_put_image_to_window()` | `SDL_RenderCopy()` + `SDL_RenderPresent()` |
+| `mlx_string_put()` | `stringColor()` (SDL2_gfx) |
+| Keyboard/mouse hooks | `SDL_Event` polling (keyboard + mouse) |
 
 <a name="features"></a>
 ## ✨ Features
@@ -170,9 +173,9 @@ make re      # Recompile everything
 | **G** | Toggle gradient color interpolation |
 | **F** | Toggle FPS display (top-left corner) |
 | **F12** | Take a screenshot |
-| **I** | Isometric projection |
-| **O** | Parallel/Orthographic projection |
-| **P** | Perspective projection |
+| **I** | Top view projection |
+| **O** | Front view projection |
+| **P** | Side view projection |
 
 #### Rotation
 | Key | Action |
