@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/22 13:45:41 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:13:55 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ bool	is_line_visible(t_line *line)
 	return (false);
 }
 
-/* Builds a BMP filename using shot_nbr and saves current ARGB frame buffer. */
-/* Wraps shot_nbr in range [0..99] to keep predictable screenshot names. */
-/* Uses an SDL surface created from locked texture pixels (no pixel copy). */
-/* Frees temporary resources and resets screenshot flag after save attempt. */
+// Captures the current frame buffer to a PNG file with an auto-incremented name
+// (screenshot_X.png). Creates a temporary SDL surface directly from locked
+// texture pixels for efficient saving, then cleans up resources and triggers
+// the white flash screen effect.
 void	take_screenshot(t_fdf *fdf)
 {
 	char			filename[20];
@@ -93,9 +93,9 @@ void	take_screenshot(t_fdf *fdf)
 	{
 		ft_strlcat(filename, fdf->shot_nbr_str, sizeof(filename));
 		free(fdf->shot_nbr_str);
-		ft_strlcat(filename, ".bmp", sizeof(filename));
-		if (SDL_SaveBMP(surface, filename) != 0)
-			ft_printf("%sScreenshot failed: %s\n", RED, SDL_GetError());
+		ft_strlcat(filename, ".png", sizeof(filename));
+		if (IMG_SavePNG(surface, filename) != 0)
+			ft_printf("%sScreenshot failed: %s\n", RED, IMG_GetError());
 		else
 			ft_printf("%s%s saved\n", BLUE, filename);
 		fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;

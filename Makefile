@@ -26,15 +26,17 @@ DEPS = $(addprefix $(PATH_DEPS), $(SRCS:.c=.d))
 INCLUDE = -I./ -I./libft/includes/
 RM = rm -f
 CFLAGS = -O3 -Wall -Wextra -Werror -pedantic -Wshadow
-LDFLAGS = -lSDL2 -lSDL2_gfx -lm
+LDFLAGS = -lSDL2 -lSDL2_gfx -lSDL2_image -lm
 
 # Detect macOS and add Homebrew SDL2 paths
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	CFLAGS += -I$(shell brew --prefix sdl2)/include/SDL2 
 	CFLAGS += -I$(shell brew --prefix sdl2_gfx)/include/SDL2
+	CFLAGS += -I$(shell brew --prefix sdl2_image)/include/SDL2
 	LDFLAGS += -L$(shell brew --prefix sdl2)/lib
 	LDFLAGS += -L$(shell brew --prefix sdl2_gfx)/lib
+	LDFLAGS += -L$(shell brew --prefix sdl2_image)/lib
 endif
 
 NORM = $(addprefix $(PATH_SRCS), $(SRCS)) ./srcs/fdf.h

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:10:39 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/12 13:37:58 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/23 19:39:10 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	release_resources(t_fdf *fdf)
 		SDL_DestroyRenderer(fdf->sdl.renderer);
 	if (fdf->sdl.window)
 		SDL_DestroyWindow(fdf->sdl.window);
+	if (fdf->img_init_success)
+		IMG_Quit();
 	SDL_Quit();
 }

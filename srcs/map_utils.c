@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:23:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 13:58:21 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:05:19 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,13 @@ static void	parse_map(t_fdf *fdf, char *line)
 /* similar philosophy as ft_atoi */
 static int	get_hex_color(char *hex_color)
 {
-	char	**split;
 	int		color;
 	int		i;
 	char	*str;
 
 	i = 0;
 	color = 0;
-	split = ft_split(hex_color, ',');
-	str = split[1] + 2;
+	str = ft_strchr(hex_color, 'x') + 1;
 	while (i < 6 && str[i] != '\0')
 	{
 		color = color * 16;
@@ -160,6 +158,5 @@ static int	get_hex_color(char *hex_color)
 			color = color + str [i] - 55;
 		i++;
 	}
-	free_split(split);
 	return (color);
 }

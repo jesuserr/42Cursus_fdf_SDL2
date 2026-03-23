@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/22 13:44:36 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/23 19:38:26 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@
 # ifdef __APPLE__
 #  include <SDL.h>						// for SDL library (macOS)
 #  include <SDL2_gfxPrimitives.h>		// for SDL2_gfx graph primitives (macOS)
+#  include <SDL_image.h>				// for IMG_SavePNG (macOS)
 # else
 #  include <SDL2/SDL.h>					// for SDL library (Linux)
 #  include <SDL2/SDL2_gfxPrimitives.h>	// for SDL2_gfx graph primitives (Linux)
+#  include <SDL2/SDL_image.h>			// for IMG_SavePNG (Linux)
 # endif
 # include <stdbool.h>					// for bool type
 # include <sys/stat.h>					// for fstat
@@ -169,6 +171,7 @@ typedef struct s_fdf
 	bool			reverse_z;
 	bool			z_is_reversed;
 	bool			take_screenshot;
+	bool			img_init_success;
 	char			*shot_nbr_str;
 	Uint32			frame_start;
 	Uint32			frame_time;

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/12 23:53:02 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/23 19:38:44 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	init_win(t_fdf *fdf)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		free_map_and_exit(fdf, ERROR_SDL);
+	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
+		free_map_and_exit(fdf, ERROR_SDL);
+	fdf->img_init_success = true;
 	fdf->sdl.window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, \
 	SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_BORDERLESS);
 	if (fdf->sdl.window == NULL)

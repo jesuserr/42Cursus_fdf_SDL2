@@ -79,7 +79,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Multiple projections**: Switch between different viewing perspectives
 - **Real-time rendering**: All transformations update instantly
 - **FPS display**: Toggle frame rate counter for performance monitoring
-- **Screenshot capture**: Save the current render to an image with F12
+- **Screenshot capture**: Save the current render to PNG format with F12
 
 ### Technical Features
 - **Optimized rendering**: Direct texture memory access instead of individual pixel API calls for dramatic performance improvement  
@@ -97,10 +97,10 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 ```bash
 # Ubuntu/Debian
 sudo apt-get update
-sudo apt-get install libsdl2-dev libsdl2-gfx-dev
+sudo apt-get install libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev
 
 # macOS (with Homebrew)
-brew install sdl2 sdl2_gfx
+brew install sdl2 sdl2_gfx sdl2_image
 ```
 
 ### Build Tools
@@ -125,7 +125,7 @@ make
 This will:
 - Compile the custom `libft` library
 - Compile all FDF source files
-- Link with SDL2 libraries
+- Link with SDL2, SDL2_gfx, and SDL2_image libraries
 - Create the `fdf` executable
 
 3. **Clean build files** (optional)
