@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/23 20:13:55 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 10:47:11 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,15 @@ bool	is_line_visible(t_line *line)
 // Captures the current frame buffer to a PNG file with an auto-incremented name
 // (screenshot_X.png). Creates a temporary SDL surface directly from locked
 // texture pixels for efficient saving, then cleans up resources and triggers
-// the white flash screen effect.
+// the white flash screen effect. Surface is created as RGB888 to ignore the
+// alpha channel and avoid checkerboard patterns in saved image.
 void	take_screenshot(t_fdf *fdf)
 {
 	char			filename[20];
 	SDL_Surface		*surface;
 
 	surface = SDL_CreateRGBSurfaceWithFormatFrom(fdf->sdl.argb_pixels, \
-	WIDTH, HEIGHT, 32, fdf->sdl.pitch, SDL_PIXELFORMAT_ARGB8888);
+	WIDTH, HEIGHT, 24, fdf->sdl.pitch, SDL_PIXELFORMAT_RGB888);
 	if (surface == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
 	ft_strlcpy(filename, "screenshot_", sizeof(filename));
