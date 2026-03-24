@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/23 19:38:26 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:52:50 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@
 # define FPS_TRANSP		125				// Alpha value for FPS background
 # define EMA_ALPHA		0.5				// Smoothing factor for FPS display
 # define NBR_SHOTS		50				// Max number of screenshots (255 limit)
+# define SHOT_DELAY		50000			// Microsecs delay after screenshot
+# define SHOT_COLOR		175				// Flash color for screenshot effect
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -187,6 +189,11 @@ typedef struct s_fdf
 **                        FUNCTION PROTOTYPES
 */
 
+/********************************* effects.c **********************************/
+void	show_fps(t_fdf *fdf);
+void	take_screenshot(t_fdf *fdf);
+void	delay_screenshot_effect(t_fdf *fdf);
+
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);
 void	free_split(char **str);
@@ -198,7 +205,6 @@ void	release_resources(t_fdf *fdf);
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color);
 void	draw_line(t_line line, t_fdf *fdf);
 bool	is_line_visible(t_line *line);
-void	take_screenshot(t_fdf *fdf);
 
 /********************************** hooks.c ***********************************/
 void	key_pressed(int keycode, t_fdf *fdf);

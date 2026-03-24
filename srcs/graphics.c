@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 10:47:11 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:17:51 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,38 +72,4 @@ bool	is_line_visible(t_line *line)
 	(line->y0 >= HEIGHT && line->y1 >= HEIGHT)))
 		return (true);
 	return (false);
-}
-
-// Captures the current frame buffer to a PNG file with an auto-incremented name
-// (screenshot_X.png). Creates a temporary SDL surface directly from locked
-// texture pixels for efficient saving, then cleans up resources and triggers
-// the white flash screen effect. Surface is created as RGB888 to ignore the
-// alpha channel and avoid checkerboard patterns in saved image.
-void	take_screenshot(t_fdf *fdf)
-{
-	char			filename[20];
-	SDL_Surface		*surface;
-
-	surface = SDL_CreateRGBSurfaceWithFormatFrom(fdf->sdl.argb_pixels, \
-	WIDTH, HEIGHT, 24, fdf->sdl.pitch, SDL_PIXELFORMAT_RGB888);
-	if (surface == NULL)
-		free_map_and_exit(fdf, ERROR_SDL);
-	ft_strlcpy(filename, "screenshot_", sizeof(filename));
-	fdf->shot_nbr_str = ft_itoa(fdf->shot_nbr);
-	if (fdf->shot_nbr_str)
-	{
-		ft_strlcat(filename, fdf->shot_nbr_str, sizeof(filename));
-		free(fdf->shot_nbr_str);
-		ft_strlcat(filename, ".png", sizeof(filename));
-		if (IMG_SavePNG(surface, filename) != 0)
-			ft_printf("%sScreenshot failed: %s\n", RED, IMG_GetError());
-		else
-			ft_printf("%s%s saved\n", BLUE, filename);
-		fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;
-	}
-	else
-		ft_printf("%sFailed to generate screenshot filename\n", RED);
-	SDL_FreeSurface(surface);
-	fdf->take_screenshot = false;
-	memset(fdf->sdl.argb_pixels, 200, fdf->sdl.pitch * HEIGHT);
 }
