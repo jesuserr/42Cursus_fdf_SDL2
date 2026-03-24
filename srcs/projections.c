@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 11:31:52 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 17:10:19 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	projection(t_fdf *fdf)
 	SDL_RenderCopy(fdf->sdl.renderer, fdf->sdl.texture, NULL, NULL);
 	if (fdf->show_fps)
 		show_fps(fdf);
+	if (fdf->show_angles)
+		show_angles(fdf);
 	SDL_RenderPresent(fdf->sdl.renderer);
 	if (fdf->take_screenshot)
 		delay_screenshot_effect(fdf);

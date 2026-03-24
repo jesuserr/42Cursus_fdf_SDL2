@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 11:52:50 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:07:06 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ typedef struct s_fdf
 	bool			z_is_reversed;
 	bool			take_screenshot;
 	bool			img_init_success;
-	char			*shot_nbr_str;
+	bool			show_angles;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
@@ -193,6 +193,7 @@ typedef struct s_fdf
 void	show_fps(t_fdf *fdf);
 void	take_screenshot(t_fdf *fdf);
 void	delay_screenshot_effect(t_fdf *fdf);
+void	show_angles(t_fdf *fdf);
 
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);

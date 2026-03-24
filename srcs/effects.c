@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 11:52:54 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:36:31 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,19 @@
 // changes // 0.5 = balanced // 0.9 = minimal smoothing, fast response.
 void	show_fps(t_fdf *fdf)
 {
-	char		*fps;
+	char		fps[8];
 
 	if (fdf->frame_time > 0 && fdf->smooth_frame_time > 0)
 	{
 		fdf->smooth_frame_time = (EMA_ALPHA * fdf->frame_time) + \
 		((1 - EMA_ALPHA) * fdf->smooth_frame_time);
-		fps = ft_itoa(1000 / fdf->smooth_frame_time);
-		if (fps)
-		{
-			SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
-			SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
-			SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 60, 10});
-			stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
-			stringColor(fdf->sdl.renderer, 40, 0, fps, RGBA_WHITE);
-			free(fps);
-			SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
-		}
+		snprintf(fps, sizeof(fps), "%3d", (int)(1000 / fdf->smooth_frame_time));
+		SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+		SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 60, 10});
+		stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
+		stringColor(fdf->sdl.renderer, 35, 0, fps, RGBA_WHITE);
+		SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
 	}
 }
 
@@ -47,6 +43,7 @@ void	show_fps(t_fdf *fdf)
 // alpha channel and avoid checkerboard patterns in saved image.
 void	take_screenshot(t_fdf *fdf)
 {
+	char			shot_nbr_str[8];
 	char			filename[20];
 	SDL_Surface		*surface;
 
@@ -55,20 +52,14 @@ void	take_screenshot(t_fdf *fdf)
 	if (surface == NULL)
 		free_map_and_exit(fdf, ERROR_SDL);
 	ft_strlcpy(filename, "screenshot_", sizeof(filename));
-	fdf->shot_nbr_str = ft_itoa(fdf->shot_nbr);
-	if (fdf->shot_nbr_str)
-	{
-		ft_strlcat(filename, fdf->shot_nbr_str, sizeof(filename));
-		free(fdf->shot_nbr_str);
-		ft_strlcat(filename, ".png", sizeof(filename));
-		if (IMG_SavePNG(surface, filename) != 0)
-			ft_printf("%sScreenshot failed: %s\n", RED, IMG_GetError());
-		else
-			ft_printf("%s%s saved\n", BLUE, filename);
-		fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;
-	}
+	snprintf(shot_nbr_str, sizeof(shot_nbr_str), "%03d", fdf->shot_nbr);
+	ft_strlcat(filename, shot_nbr_str, sizeof(filename));
+	ft_strlcat(filename, ".png", sizeof(filename));
+	if (IMG_SavePNG(surface, filename) != 0)
+		ft_printf("%sScreenshot failed: %s\n", RED, IMG_GetError());
 	else
-		ft_printf("%sFailed to generate screenshot filename\n", RED);
+		ft_printf("%s%s saved\n", BLUE, filename);
+	fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;
 	SDL_FreeSurface(surface);
 	memset(fdf->sdl.argb_pixels, SHOT_COLOR, fdf->sdl.pitch * HEIGHT);
 }
@@ -77,4 +68,29 @@ void	delay_screenshot_effect(t_fdf *fdf)
 {
 	fdf->take_screenshot = false;
 	usleep(SHOT_DELAY);
+}
+
+// Similar to show_fps, this function displays the current rotation angles
+// (angle_x, angle_y, angle_z) in the top-left corner. Draws a semi-transparent
+// black background rectangle for better visibility, then renders each angle
+// with labels.
+void	show_angles(t_fdf *fdf)
+{
+	char		angle_x[8];
+	char		angle_y[8];
+	char		angle_z[8];
+
+	snprintf(angle_x, sizeof(angle_x), "%3d", (int)fdf->angle_x);
+	snprintf(angle_y, sizeof(angle_y), "%3d", (int)fdf->angle_y);
+	snprintf(angle_z, sizeof(angle_z), "%3d", (int)fdf->angle_z);
+	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 10, 60, 30});
+	stringColor(fdf->sdl.renderer, 0, 10, "  x:", RGBA_WHITE);
+	stringColor(fdf->sdl.renderer, 35, 10, angle_x, RGBA_WHITE);
+	stringColor(fdf->sdl.renderer, 0, 20, "  y:", RGBA_WHITE);
+	stringColor(fdf->sdl.renderer, 35, 20, angle_y, RGBA_WHITE);
+	stringColor(fdf->sdl.renderer, 0, 30, "  z:", RGBA_WHITE);
+	stringColor(fdf->sdl.renderer, 35, 30, angle_z, RGBA_WHITE);
+	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
 }

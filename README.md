@@ -79,6 +79,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Multiple projections**: Switch between different viewing perspectives
 - **Real-time rendering**: All transformations update instantly
 - **FPS display**: Toggle frame rate counter for performance monitoring
+- **Angle display**: Toggle rotation angle values overlay (X, Y, Z axes)
 - **Screenshot capture**: Save the current render to PNG format with F12
 
 ### Technical Features
@@ -172,6 +173,7 @@ make re      # Recompile everything
 | **R** | Toggle line rendering (show/hide wireframe) |
 | **G** | Toggle gradient color interpolation |
 | **F** | Toggle FPS display (top-left corner) |
+| **T** | Toggle angle display (X, Y, Z rotation values) |
 | **F12** | Take a screenshot |
 | **I** | Top view projection |
 | **O** | Front view projection |
@@ -180,10 +182,10 @@ make re      # Recompile everything
 #### Rotation
 | Key | Action |
 |-----|--------|
-| **W** | Rotate up (X-axis +) |
 | **Q** | Rotate down (X-axis -) |
-| **S** | Rotate right (Y-axis +) |
+| **W** | Rotate up (X-axis +) |
 | **A** | Rotate left (Y-axis -) |
+| **S** | Rotate right (Y-axis +) |
 | **Z** | Rotate counterclockwise (Z-axis -) |
 | **X** | Rotate clockwise (Z-axis +) |
 
