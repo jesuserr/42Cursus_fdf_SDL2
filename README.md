@@ -114,7 +114,7 @@ brew install sdl2 sdl2_gfx sdl2_image
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/42Cursus_fdf_SDL2.git
+git clone https://github.com/jesuserr/42Cursus_fdf_SDL2.git
 cd 42Cursus_fdf_SDL2
 ```
 
@@ -273,7 +273,10 @@ The project includes various test maps in the `maps/` directory:
 │   ├── fdf.h                   # Main header with structs and prototypes
 │   ├── main.c                  # Entry point and initialization
 │   ├── graphics.c              # SDL2 rendering functions
+│   ├── effects.c               # HUD overlay (FPS, angles, help)
+│   ├── screenshot.c            # Screenshot capture to PNG files
 │   ├── hooks.c                 # Keyboard event handling
+│   ├── mouse.c                 # Mouse event handling (wheel, clicks)
 │   ├── projections.c           # Projection calculations
 │   ├── rotations.c             # 3D rotation transformations
 │   ├── moves.c                 # Movement and key actions
