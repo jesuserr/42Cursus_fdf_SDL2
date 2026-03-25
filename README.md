@@ -163,10 +163,13 @@ make re      # Recompile everything
 <a name="controls"></a>
 ## 🎨 Controls
 
+> **💡 Tip**: Press **F1** during execution to display an in-program help overlay with all available controls.
+
 ### Keyboard Controls
 
 | Key | Action |
 |-----|--------|
+| **F1** | Toggle on-screen help display |
 | **ESC** | Exit program |
 | **SPACE** | Toggle automatic rotation animation |
 | **C** | Reset view (zoom, position, rotation, and height) |

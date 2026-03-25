@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 19:37:48 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/25 23:53:06 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@
 # define MAX_Z_SCALES	50
 # define FPS_LIMIT		60
 # define FPS_TRANSP		125				// Alpha value for FPS background
+# define OPACITY_MAX	255
 # define EMA_ALPHA		0.25			// Smoothing factor for FPS display
 # define NBR_SHOTS		50				// Max number of screenshots (255 limit)
 # define SHOT_DELAY		50000			// Microsecs delay after screenshot
 # define SHOT_COLOR		175				// Flash color for screenshot effect
+# define HELP_BOX_W		200				// Width of the help box
+# define HELP_BOX_H		200				// Height of the help box
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -175,6 +178,7 @@ typedef struct s_fdf
 	bool			take_screenshot;
 	bool			img_init_success;
 	bool			show_angles;
+	bool			show_help;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
@@ -191,8 +195,6 @@ typedef struct s_fdf
 
 /********************************* effects.c **********************************/
 void	render_hud(t_fdf *fdf);
-void	take_screenshot(t_fdf *fdf);
-void	delay_screenshot_effect(t_fdf *fdf);
 
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);
@@ -228,6 +230,10 @@ void	projection(t_fdf *fdf);
 /********************************* rotations.c ********************************/
 void	rotate(t_fdf *fdf);
 void	unrotate(t_fdf *fdf);
+
+/********************************* screenshot.c *******************************/
+void	take_screenshot(t_fdf *fdf);
+void	delay_screenshot_effect(t_fdf *fdf);
 
 /********************************** z-utils.c *********************************/
 void	z_centering(t_fdf *fdf);

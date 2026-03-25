@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 17:09:55 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/25 23:00:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
 		fdf->take_screenshot = true;
 	else if (keycode == SDLK_t)
 		fdf->show_angles = !fdf->show_angles;
+	else if (keycode == SDLK_F1)
+		fdf->show_help = !fdf->show_help;
 }
 
 void	key_released(int keycode, t_fdf *fdf)

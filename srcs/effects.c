@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 19:37:48 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/26 00:03:36 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,26 @@
 
 static void	show_fps(t_fdf *fdf);
 static void	show_angles(t_fdf *fdf);
+static void	show_help(t_fdf *fdf);
+static void	show_help_aux(SDL_Renderer *rend, int txt_x, int txt_y);
 
+// Renders all HUD overlay elements on top of the 3D scene. Sets blend mode
+// to BLEND at the start for semi-transparent backgrounds, displays the [F1]
+// help hint, and conditionally renders FPS counter, angle display, and full
+// help overlay based on user toggles. Resets blend mode to NONE when done.
 void	render_hud(t_fdf *fdf)
 {
+	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, HEIGHT - 10, 30, 10});
+	stringColor(fdf->sdl.renderer, 0, HEIGHT - 10, "[F1]", RGBA_WHITE);
 	if (fdf->show_fps)
 		show_fps(fdf);
 	if (fdf->show_angles)
 		show_angles(fdf);
+	if (fdf->show_help && WIDTH > HELP_BOX_W * 1.5 && HEIGHT > HELP_BOX_H * 1.5)
+		show_help(fdf);
+	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
 }
 
 // Displays the current frames per second (FPS) in the top-left corner.
@@ -38,47 +51,11 @@ static void	show_fps(t_fdf *fdf)
 		fdf->smooth_frame_time = (EMA_ALPHA * fdf->frame_time) + \
 		((1 - EMA_ALPHA) * fdf->smooth_frame_time);
 		snprintf(fps, sizeof(fps), "%3d", (int)(1000 / fdf->smooth_frame_time));
-		SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
 		SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 60, 10});
 		stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
 		stringColor(fdf->sdl.renderer, 35, 0, fps, RGBA_WHITE);
-		SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
 	}
-}
-
-// Captures the current frame buffer to a PNG file with an auto-incremented name
-// (screenshot_X.png). Creates a temporary SDL surface directly from locked
-// texture pixels for efficient saving, then cleans up resources and triggers
-// the white flash screen effect. Surface is created as RGB888 to ignore the
-// alpha channel and avoid checkerboard patterns in saved image.
-void	take_screenshot(t_fdf *fdf)
-{
-	char			shot_nbr_str[8];
-	char			filename[20];
-	SDL_Surface		*surface;
-
-	surface = SDL_CreateRGBSurfaceWithFormatFrom(fdf->sdl.argb_pixels, \
-	WIDTH, HEIGHT, 24, fdf->sdl.pitch, SDL_PIXELFORMAT_RGB888);
-	if (surface == NULL)
-		free_map_and_exit(fdf, ERROR_SDL);
-	ft_strlcpy(filename, "screenshot_", sizeof(filename));
-	snprintf(shot_nbr_str, sizeof(shot_nbr_str), "%03d", fdf->shot_nbr);
-	ft_strlcat(filename, shot_nbr_str, sizeof(filename));
-	ft_strlcat(filename, ".png", sizeof(filename));
-	if (IMG_SavePNG(surface, filename) != 0)
-		ft_printf("%sScreenshot failed: %s\n", RED, IMG_GetError());
-	else
-		ft_printf("%s%s saved\n", BLUE, filename);
-	fdf->shot_nbr = (fdf->shot_nbr + 1) % NBR_SHOTS;
-	SDL_FreeSurface(surface);
-	memset(fdf->sdl.argb_pixels, SHOT_COLOR, fdf->sdl.pitch * HEIGHT);
-}
-
-void	delay_screenshot_effect(t_fdf *fdf)
-{
-	fdf->take_screenshot = false;
-	usleep(SHOT_DELAY);
 }
 
 // Similar to show_fps, this function displays the current rotation angles
@@ -94,7 +71,6 @@ static void	show_angles(t_fdf *fdf)
 	snprintf(angle_x, sizeof(angle_x), "%3d", (int)fdf->angle_x);
 	snprintf(angle_y, sizeof(angle_y), "%3d", (int)fdf->angle_y);
 	snprintf(angle_z, sizeof(angle_z), "%3d", (int)fdf->angle_z);
-	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
 	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 10, 60, 30});
 	stringColor(fdf->sdl.renderer, 0, 10, "  x:", RGBA_WHITE);
@@ -103,5 +79,50 @@ static void	show_angles(t_fdf *fdf)
 	stringColor(fdf->sdl.renderer, 35, 20, angle_y, RGBA_WHITE);
 	stringColor(fdf->sdl.renderer, 0, 30, "  z:", RGBA_WHITE);
 	stringColor(fdf->sdl.renderer, 35, 30, angle_z, RGBA_WHITE);
-	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_NONE);
+}
+
+// Displays a centered help overlay box with all keyboard control mappings.
+// Draws a white border frame around a black background box for visibility,
+// then renders control descriptions in a formatted list. Triggered by F1 key
+// and split into two functions (show_help + show_help_aux) for Norminette.
+void	show_help(t_fdf *fdf)
+{
+	int				box_x;
+	int				box_y;
+	int				txt_x;
+	int				txt_y;
+	SDL_Renderer	*rend;
+
+	rend = fdf->sdl.renderer;
+	box_x = WIDTH / 2 - HELP_BOX_W / 2;
+	box_y = HEIGHT / 2 - HELP_BOX_H / 2;
+	txt_x = box_x + 10;
+	txt_y = box_y + 5;
+	SDL_SetRenderDrawColor(rend, 255, 255, 255, OPACITY_MAX);
+	SDL_RenderFillRect(rend, &(SDL_Rect){box_x - 5, box_y - 5, \
+	HELP_BOX_W + 10, HELP_BOX_H + 10});
+	SDL_SetRenderDrawColor(rend, 0, 0, 0, OPACITY_MAX);
+	SDL_RenderFillRect(rend, &(SDL_Rect){box_x, box_y, HELP_BOX_W, HELP_BOX_H});
+	stringColor(rend, txt_x, txt_y += 5, "Rotate X:       Q/W", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Rotate Y:       A/S", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Rotate Z:       Z/X", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Move:           Arrows", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Zoom:           E/D", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Scale Z:        1/2", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Reverse Z:      V", RGBA_WHITE);
+	show_help_aux(rend, txt_x, txt_y);
+}
+
+void	show_help_aux(SDL_Renderer *rend, int txt_x, int txt_y)
+{
+	stringColor(rend, txt_x, txt_y += 10, "Reset View:     C", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Alt. Views:     I/O/P", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Screenshot:     F12", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Wireframe:      R", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Color Grad.:    G", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "FPS Display:    F", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Angles Display: T", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Animation:      Space", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Exit:           ESC", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 20, "------ CONTROLS ------", RGBA_WHITE);
 }
