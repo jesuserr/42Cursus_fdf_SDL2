@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:23:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 19:05:02 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/25 21:35:13 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,31 +109,31 @@ void	verify_and_parse_map(t_fdf *fdf)
 /*       harder to read but can help to save a couple of lines if needed */
 static void	parse_map(t_fdf *fdf, char *line)
 {
+	char		**split;
 	int			i;
 	static int	j = 0;
 	static int	k = 0;
 
+	split = ft_split(line, ' ');
 	i = 0;
-	while (*line && *line != '\n')
+	while (i < fdf->x_elem)
 	{
-		while (*line == ' ')
-			line++;
-		fdf->map[k].x = (i++) + ((fdf->x_elem / -2.0) + 0.5);
+		fdf->map[k].x = i + ((fdf->x_elem / -2.0) + 0.5);
 		fdf->map[k].y = j + ((fdf->y_elem / -2.0) + 0.5);
-		fdf->map[k].z = ft_atoi(line);
+		fdf->map[k].z = ft_atoi(split[i]);
 		if (fdf->map[k].z > fdf->z_max)
 			fdf->z_max = fdf->map[k].z;
 		if (fdf->map[k].z < fdf->z_min)
 			fdf->z_min = fdf->map[k].z;
-		if (ft_strstr(line, ",0x"))
-			fdf->map[k].color = get_hex_color(line);
+		if (ft_strstr(split[i], ",0x"))
+			fdf->map[k].color = get_hex_color(split[i]);
 		else
 			fdf->map[k].color = DEF_COLOR;
 		k++;
-		while (*line && *line != ' ' && *line != '\n')
-			line++;
+		i++;
 	}
 	j++;
+	free_split(split);
 }
 
 /* Converts the str containing the hex color to an int value */
