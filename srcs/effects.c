@@ -6,11 +6,22 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 18:36:31 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/25 19:37:48 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static void	show_fps(t_fdf *fdf);
+static void	show_angles(t_fdf *fdf);
+
+void	render_hud(t_fdf *fdf)
+{
+	if (fdf->show_fps)
+		show_fps(fdf);
+	if (fdf->show_angles)
+		show_angles(fdf);
+}
 
 // Displays the current frames per second (FPS) in the top-left corner.
 // Uses exponential moving average (EMA) to smooth frame time fluctuations
@@ -18,7 +29,7 @@
 // rendering the FPS text for better visibility.
 // EMA_ALPHA controls smoothing strength, 0.1 = very smooth, slow to respond to
 // changes // 0.5 = balanced // 0.9 = minimal smoothing, fast response.
-void	show_fps(t_fdf *fdf)
+static void	show_fps(t_fdf *fdf)
 {
 	char		fps[8];
 
@@ -74,7 +85,7 @@ void	delay_screenshot_effect(t_fdf *fdf)
 // (angle_x, angle_y, angle_z) in the top-left corner. Draws a semi-transparent
 // black background rectangle for better visibility, then renders each angle
 // with labels.
-void	show_angles(t_fdf *fdf)
+static void	show_angles(t_fdf *fdf)
 {
 	char		angle_x[8];
 	char		angle_y[8];

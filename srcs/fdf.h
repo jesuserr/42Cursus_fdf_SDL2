@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 18:07:06 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/25 19:37:48 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define MAX_Z_SCALES	50
 # define FPS_LIMIT		60
 # define FPS_TRANSP		125				// Alpha value for FPS background
-# define EMA_ALPHA		0.5				// Smoothing factor for FPS display
+# define EMA_ALPHA		0.25			// Smoothing factor for FPS display
 # define NBR_SHOTS		50				// Max number of screenshots (255 limit)
 # define SHOT_DELAY		50000			// Microsecs delay after screenshot
 # define SHOT_COLOR		175				// Flash color for screenshot effect
@@ -190,10 +190,9 @@ typedef struct s_fdf
 */
 
 /********************************* effects.c **********************************/
-void	show_fps(t_fdf *fdf);
+void	render_hud(t_fdf *fdf);
 void	take_screenshot(t_fdf *fdf);
 void	delay_screenshot_effect(t_fdf *fdf);
-void	show_angles(t_fdf *fdf);
 
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);
