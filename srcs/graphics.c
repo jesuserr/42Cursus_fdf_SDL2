@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/24 11:17:51 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:46:44 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,38 @@
 
 static void	line_direction(t_line *line, t_line_aux *line_aux);
 
-// Writes a single pixel directly to the locked texture buffer in ARGB8888
-// format. Bounds limits are checked by caller. Transparency set to 0xFF (255).
+// If line thickness is default (1), just writes a single pixel directly to the
+// locked texture buffer in ARGB8888 format and exits. For thicker lines, 
+// calculates a circular brush pattern around the target pixel and also checks
+// that none of these new pixels exceed the screen boundaries. Pixel bounds
+// limits are checked by the caller. Transparency set to 0xFF (255 - Opaque).
 void	sdl_put_pixel(t_fdf *fdf, int x, int y, int color)
 {
-	fdf->sdl.argb_pixels[(y * fdf->sdl.pixels_per_row) + x] = \
-	color | 0xFF000000;
+	int	off_x;
+	int	off_y;
+	int	off;
+
+	if (fdf->line_thickness == DEF_LINE_THK)
+	{
+		fdf->sdl.argb_pixels[(y * fdf->sdl.pixels_per_row) + x] = \
+		color | 0xFF000000;
+		return ;
+	}
+	off = fdf->line_thickness / 2;
+	off_x = -off;
+	while (off_x <= off)
+	{
+		off_y = -off;
+		while (off_y <= off)
+		{
+			if ((off_x * off_x + off_y * off_y <= off * off) && x + off_x >= 0 \
+			&& y + off_y >= 0 && x + off_x < WIDTH && y + off_y < HEIGHT)
+				fdf->sdl.argb_pixels[((y + off_y) * fdf->sdl.pixels_per_row) \
+				+ x + off_x] = color | 0xFF000000;
+			off_y++;
+		}
+		off_x++;
+	}
 }
 
 /* Uses Bresenham's line algorithm (extended to work in any octant) */

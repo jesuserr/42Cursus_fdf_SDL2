@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 23:00:09 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/26 17:54:07 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
 		fdf->show_angles = !fdf->show_angles;
 	else if (keycode == SDLK_F1)
 		fdf->show_help = !fdf->show_help;
+	else if (keycode == SDLK_3 && fdf->line_thickness < MAX_LINE_THK)
+		fdf->line_thickness += 2;
+	else if (keycode == SDLK_4 && fdf->line_thickness > DEF_LINE_THK)
+		fdf->line_thickness -= 2;
 }
 
 void	key_released(int keycode, t_fdf *fdf)

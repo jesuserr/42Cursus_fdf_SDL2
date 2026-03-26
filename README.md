@@ -206,9 +206,15 @@ make re      # Recompile everything
 #### Scaling
 | Key | Action |
 |-----|--------|
-| **1** | Decrease Z-axis height |
-| **2** | Increase Z-axis height |
+| **1** | Increase Z-axis height |
+| **2** | Decrease Z-axis height |
 | **V** | Reverse Z-axis (flip terrain upside down) |
+
+#### Line Thickness
+| Key | Action |
+|-----|--------|
+| **3** | Increase line/point thickness |
+| **4** | Decrease line/point thickness |
 
 ### Mouse Controls
 

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 23:53:06 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/26 19:45:14 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@
 # define SHOT_DELAY		50000			// Microsecs delay after screenshot
 # define SHOT_COLOR		175				// Flash color for screenshot effect
 # define HELP_BOX_W		200				// Width of the help box
-# define HELP_BOX_H		200				// Height of the help box
+# define HELP_BOX_H		210				// Height of the help box
+# define DEF_LINE_THK	1				// Line default (and minimum) thickness
+# define MAX_LINE_THK	7				// Max line thickness
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -183,6 +185,7 @@ typedef struct s_fdf
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;
 	Uint8			shot_nbr;
+	Uint8			line_thickness;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer
