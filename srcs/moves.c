@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 20:43:32 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 21:44:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static void	key_action_1(t_fdf *fdf)
 		fdf->offset_y -= INC_OFFSET;
 	if (fdf->key.up_press)
 		fdf->offset_y += INC_OFFSET;
+	if (fdf->key.mlb_press)
+	{
+		fdf->angle_x += fdf->key.mouse_delta_y * -ROT_ANGLE;
+		fdf->angle_y += fdf->key.mouse_delta_x * -ROT_ANGLE;
+	}
 }
 
 /* Deals with the three available views */

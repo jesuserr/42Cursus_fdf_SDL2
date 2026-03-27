@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 20:42:35 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 21:45:40 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,10 @@ typedef struct s_keys
 	int		o_press;
 	int		p_press;
 	bool	bar_press;
-	int		mwb_press;
+	int		mwb_press;					// Mouse wheel button pressed
+	int		mlb_press;					// Mouse left button pressed
+	int		mouse_delta_x;
+	int		mouse_delta_y;
 }	t_keys;
 
 typedef struct s_sdl_window
