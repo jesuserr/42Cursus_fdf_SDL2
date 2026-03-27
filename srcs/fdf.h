@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/26 19:45:14 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 20:42:35 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ void	verify_and_parse_map(t_fdf *fdf);
 void	mouse_wheel_scrolled(SDL_MouseWheelEvent wheel, t_fdf *fdf);
 void	mouse_button_pressed(SDL_MouseButtonEvent button, t_fdf *fdf);
 void	mouse_button_released(SDL_MouseButtonEvent button, t_fdf *fdf);
+void	mouse_motion(SDL_MouseMotionEvent motion, t_fdf *fdf);
 
 /********************************** moves.c ***********************************/
 void	apply_input_events(t_fdf *fdf);

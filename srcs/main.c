@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/26 17:52:41 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:45:52 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ void	process_input_events_and_render(t_fdf *fdf)
 			mouse_button_pressed(event.button, fdf);
 		else if (event.type == SDL_MOUSEBUTTONUP)
 			mouse_button_released(event.button, fdf);
+		else if (event.type == SDL_MOUSEMOTION)
+			mouse_motion(event.motion, fdf);
 	}
 	apply_input_events(fdf);
-	projection(fdf);
 	fdf->frame_time = SDL_GetTicks() - fdf->frame_start;
 	while (fdf->frame_time < (1000 / FPS_LIMIT))
 	{

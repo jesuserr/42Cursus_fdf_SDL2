@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:37:33 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/02/14 13:56:20 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 20:43:21 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,16 @@ void	mouse_button_pressed(SDL_MouseButtonEvent button, t_fdf *fdf)
 }
 
 void	mouse_button_released(SDL_MouseButtonEvent button, t_fdf *fdf)
-	{
+{
 	if (button.button == SDL_BUTTON_MIDDLE)
 		fdf->key.mwb_press = 0;
+}
+
+void	mouse_motion(SDL_MouseMotionEvent motion, t_fdf *fdf)
+{
+	if (motion.state & SDL_BUTTON(SDL_BUTTON_RIGHT))
+	{
+		fdf->offset_x += motion.xrel;
+		fdf->offset_y += motion.yrel;
+	}
 }

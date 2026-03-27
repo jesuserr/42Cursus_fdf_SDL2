@@ -68,7 +68,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 
 ### Interactive Controls
 - **3D Rotation**: Rotate on X, Y, and Z axes with keyboard controls
-- **Translation**: Move the model using arrow keys
+- **Translation**: Move the model using arrow keys or by dragging with the right mouse button
 - **Zoom**: Adjust viewing distance (keyboard and mouse wheel)
 - **Height scaling**: Adjust Z-axis elevation
 - **Smooth animation**: Automatic rotation mode
@@ -223,6 +223,7 @@ make re      # Recompile everything
 | **Mouse wheel up** | Zoom in (same as E key) |
 | **Mouse wheel down** | Zoom out (same as D key) |
 | **Mouse wheel click** | Reset view (same as C key) |
+| **Right mouse button + drag** | Pan the drawing (move offset) |
 
 <a name="map-format"></a>
 ## 📝 Map Format
