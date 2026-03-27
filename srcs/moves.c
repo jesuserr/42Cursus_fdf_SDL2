@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 21:44:09 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/27 22:12:47 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void	apply_input_events(t_fdf *fdf)
 	key_action_1(fdf);
 	key_action_2(fdf);
 	key_action_3(fdf);
+	if (fdf->key.mlb_press)
+	{
+		fdf->angle_x += fdf->key.mouse_delta_y * -ROT_ANGLE;
+		fdf->angle_y += fdf->key.mouse_delta_x * -ROT_ANGLE;
+		fdf->key.mouse_delta_x = 0;
+		fdf->key.mouse_delta_y = 0;
+	}
 	normalize_angles(fdf);
 	rotate(fdf);
 	projection(fdf);
@@ -51,11 +58,6 @@ static void	key_action_1(t_fdf *fdf)
 		fdf->offset_y -= INC_OFFSET;
 	if (fdf->key.up_press)
 		fdf->offset_y += INC_OFFSET;
-	if (fdf->key.mlb_press)
-	{
-		fdf->angle_x += fdf->key.mouse_delta_y * -ROT_ANGLE;
-		fdf->angle_y += fdf->key.mouse_delta_x * -ROT_ANGLE;
-	}
 }
 
 /* Deals with the three available views */
