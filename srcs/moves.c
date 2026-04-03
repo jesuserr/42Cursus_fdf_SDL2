@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 22:12:47 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/03 13:37:33 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	apply_input_events(t_fdf *fdf)
 	key_action_3(fdf);
 	if (fdf->key.mlb_press)
 	{
-		fdf->angle_x += fdf->key.mouse_delta_y * -ROT_ANGLE;
-		fdf->angle_y += fdf->key.mouse_delta_x * -ROT_ANGLE;
-		fdf->key.mouse_delta_x = 0;
-		fdf->key.mouse_delta_y = 0;
+		fdf->angle_x -= fdf->mouse_delta_y;
+		fdf->angle_y -= fdf->mouse_delta_x;
+		fdf->mouse_delta_x = 0;
+		fdf->mouse_delta_y = 0;
 	}
 	normalize_angles(fdf);
 	rotate(fdf);
@@ -63,24 +63,24 @@ static void	key_action_1(t_fdf *fdf)
 /* Deals with the three available views */
 static void	key_action_2(t_fdf *fdf)
 {
-	if (fdf->key.i_press == 1 || fdf->key.o_press == 1 || fdf->key.p_press == 1)
+	if (fdf->key.i_press || fdf->key.o_press || fdf->key.p_press)
 	{
 		fdf->zoom = INIT_ZOOM;
 		fdf->offset_x = 0;
 		fdf->offset_y = 0;
 		fdf->angle_z = 0;
 	}
-	if (fdf->key.i_press == 1)
+	if (fdf->key.i_press)
 	{
 		fdf->angle_x = 0;
 		fdf->angle_y = 0;
 	}
-	else if (fdf->key.o_press == 1)
+	else if (fdf->key.o_press)
 	{
 		fdf->angle_x = 90;
 		fdf->angle_y = 0;
 	}
-	else if (fdf->key.p_press == 1)
+	else if (fdf->key.p_press)
 	{
 		fdf->angle_x = 90;
 		fdf->angle_y = 90;

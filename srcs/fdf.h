@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 21:45:40 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/28 14:20:36 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define INC_ZOOM_Z		1.1
 # define MAX_Z_SCALES	50
 # define FPS_LIMIT		60
-# define FPS_TRANSP		125				// Alpha value for FPS background
+# define BACKG_TRANSP	125				// Alpha value for background
 # define OPACITY_MAX	255
 # define EMA_ALPHA		0.25			// Smoothing factor for FPS display
 # define NBR_SHOTS		50				// Max number of screenshots (255 limit)
@@ -122,26 +122,24 @@ typedef struct s_line_aux
 
 typedef struct s_keys
 {
-	int		q_press;
-	int		w_press;
-	int		a_press;
-	int		s_press;
-	int		z_press;
-	int		x_press;
-	int		one_press;
-	int		two_press;
-	int		left_press;
-	int		right_press;
-	int		down_press;
-	int		up_press;
-	int		i_press;
-	int		o_press;
-	int		p_press;
+	bool	q_press;
+	bool	w_press;
+	bool	a_press;
+	bool	s_press;
+	bool	z_press;
+	bool	x_press;
+	bool	one_press;
+	bool	two_press;
+	bool	left_press;
+	bool	right_press;
+	bool	down_press;
+	bool	up_press;
+	bool	i_press;
+	bool	o_press;
+	bool	p_press;
 	bool	bar_press;
-	int		mwb_press;					// Mouse wheel button pressed
-	int		mlb_press;					// Mouse left button pressed
-	int		mouse_delta_x;
-	int		mouse_delta_y;
+	bool	mwb_press;					// Mouse wheel button pressed
+	bool	mlb_press;					// Mouse left button pressed
 }	t_keys;
 
 typedef struct s_sdl_window
@@ -189,6 +187,8 @@ typedef struct s_fdf
 	Uint32			smooth_frame_time;
 	Uint8			shot_nbr;
 	Uint8			line_thickness;
+	int				mouse_delta_x;
+	int				mouse_delta_y;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer

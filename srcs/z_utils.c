@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:20 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/11 18:32:39 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/28 14:16:51 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ void	modify_height(t_fdf *fdf)
 	int	i;
 
 	i = 0;
-	if (fdf->key.one_press == 1 && fdf->num_scales_z < MAX_Z_SCALES)
+	if (fdf->key.one_press && fdf->num_scales_z < MAX_Z_SCALES)
 	{
 		while (i < (fdf->x_elem * fdf->y_elem))
 			fdf->map[i++].z *= fdf->user_scale_z;
 		fdf->num_scales_z++;
 	}
-	else if (fdf->key.two_press == 1 && fdf->num_scales_z > -MAX_Z_SCALES)
+	else if (fdf->key.two_press && fdf->num_scales_z > -MAX_Z_SCALES)
 	{
 		while (i < (fdf->x_elem * fdf->y_elem))
 			fdf->map[i++].z /= fdf->user_scale_z;

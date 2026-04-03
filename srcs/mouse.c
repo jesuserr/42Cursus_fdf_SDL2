@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 12:37:33 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 21:47:38 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/28 14:10:13 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	mouse_wheel_scrolled(SDL_MouseWheelEvent wheel, t_fdf *fdf)
 void	mouse_button_pressed(SDL_MouseButtonEvent button, t_fdf *fdf)
 {
 	if (button.button == SDL_BUTTON_MIDDLE)
-		fdf->key.mwb_press = 1;
+		fdf->key.mwb_press = true;
 	else if (button.button == SDL_BUTTON_LEFT)
-		fdf->key.mlb_press = 1;
+		fdf->key.mlb_press = true;
 }
 
 void	mouse_button_released(SDL_MouseButtonEvent button, t_fdf *fdf)
 {
 	if (button.button == SDL_BUTTON_MIDDLE)
-		fdf->key.mwb_press = 0;
+		fdf->key.mwb_press = false;
 	else if (button.button == SDL_BUTTON_LEFT)
-		fdf->key.mlb_press = 0;
+		fdf->key.mlb_press = false;
 }
 
 // xrel and yrel are the relative motion in the x and y direction and their
@@ -48,7 +48,7 @@ void	mouse_motion(SDL_MouseMotionEvent motion, t_fdf *fdf)
 	}
 	else if (motion.state & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		fdf->key.mouse_delta_x = motion.xrel;
-		fdf->key.mouse_delta_y = motion.yrel;
+		fdf->mouse_delta_x = motion.xrel * ROT_ANGLE;
+		fdf->mouse_delta_y = motion.yrel * ROT_ANGLE;
 	}
 }

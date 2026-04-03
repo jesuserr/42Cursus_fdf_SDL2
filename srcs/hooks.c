@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/26 17:54:07 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/28 14:15:22 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,48 +21,48 @@ void	key_pressed(int keycode, t_fdf *fdf)
 	if (keycode == SDLK_ESCAPE)
 		fdf->running = false;
 	else if (keycode == SDLK_q)
-		fdf->key.q_press = 1;
+		fdf->key.q_press = true;
 	else if (keycode == SDLK_w)
-		fdf->key.w_press = 1;
+		fdf->key.w_press = true;
 	else if (keycode == SDLK_a)
-		fdf->key.a_press = 1;
+		fdf->key.a_press = true;
 	else if (keycode == SDLK_s)
-		fdf->key.s_press = 1;
+		fdf->key.s_press = true;
 	else if (keycode == SDLK_z)
-		fdf->key.z_press = 1;
+		fdf->key.z_press = true;
 	else if (keycode == SDLK_x)
-		fdf->key.x_press = 1;
+		fdf->key.x_press = true;
 	else if (keycode == SDLK_LEFT)
-		fdf->key.left_press = 1;
+		fdf->key.left_press = true;
 	else if (keycode == SDLK_RIGHT)
-		fdf->key.right_press = 1;
+		fdf->key.right_press = true;
 	else if (keycode == SDLK_DOWN)
-		fdf->key.down_press = 1;
+		fdf->key.down_press = true;
 	else if (keycode == SDLK_UP)
-		fdf->key.up_press = 1;
+		fdf->key.up_press = true;
 	else if (keycode == SDLK_i)
-		fdf->key.i_press = 1;
+		fdf->key.i_press = true;
 	key_pressed_aux(keycode, fdf);
 }
 
 static void	key_pressed_aux(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_o)
-		fdf->key.o_press = 1;
+		fdf->key.o_press = true;
 	else if (keycode == SDLK_p)
-		fdf->key.p_press = 1;
+		fdf->key.p_press = true;
 	else if (keycode == SDLK_SPACE)
 		fdf->key.bar_press = !fdf->key.bar_press;
 	else if (keycode == SDLK_1)
-		fdf->key.one_press = 1;
+		fdf->key.one_press = true;
 	else if (keycode == SDLK_2)
-		fdf->key.two_press = 1;
+		fdf->key.two_press = true;
 	else if (keycode == SDLK_e && fdf->zoom < ZOOM_MAX)
 		fdf->zoom *= INC_ZOOM;
 	else if (keycode == SDLK_d && fdf->zoom > ZOOM_MIN)
 		fdf->zoom /= INC_ZOOM;
 	else if (keycode == SDLK_c)
-		fdf->key.mwb_press = 1;
+		fdf->key.mwb_press = true;
 	else if (keycode == SDLK_r)
 		fdf->render_only_points = !fdf->render_only_points;
 	else if (keycode == SDLK_g)
@@ -91,42 +91,42 @@ static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
 void	key_released(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_q)
-		fdf->key.q_press = 0;
+		fdf->key.q_press = false;
 	else if (keycode == SDLK_w)
-		fdf->key.w_press = 0;
+		fdf->key.w_press = false;
 	else if (keycode == SDLK_a)
-		fdf->key.a_press = 0;
+		fdf->key.a_press = false;
 	else if (keycode == SDLK_s)
-		fdf->key.s_press = 0;
+		fdf->key.s_press = false;
 	else if (keycode == SDLK_z)
-		fdf->key.z_press = 0;
+		fdf->key.z_press = false;
 	else if (keycode == SDLK_x)
-		fdf->key.x_press = 0;
+		fdf->key.x_press = false;
 	else if (keycode == SDLK_LEFT)
-		fdf->key.left_press = 0;
+		fdf->key.left_press = false;
 	else if (keycode == SDLK_RIGHT)
-		fdf->key.right_press = 0;
+		fdf->key.right_press = false;
 	else if (keycode == SDLK_DOWN)
-		fdf->key.down_press = 0;
+		fdf->key.down_press = false;
 	else if (keycode == SDLK_UP)
-		fdf->key.up_press = 0;
+		fdf->key.up_press = false;
 	else if (keycode == SDLK_i)
-		fdf->key.i_press = 0;
+		fdf->key.i_press = false;
 	else if (keycode == SDLK_o)
-		fdf->key.o_press = 0;
+		fdf->key.o_press = false;
 	key_released_aux(keycode, fdf);
 }
 
 static void	key_released_aux(int keycode, t_fdf *fdf)
 {
 	if (keycode == SDLK_p)
-		fdf->key.p_press = 0;
+		fdf->key.p_press = false;
 	else if (keycode == SDLK_1)
-		fdf->key.one_press = 0;
+		fdf->key.one_press = false;
 	else if (keycode == SDLK_2)
-		fdf->key.two_press = 0;
+		fdf->key.two_press = false;
 	else if (keycode == SDLK_c)
-		fdf->key.mwb_press = 0;
+		fdf->key.mwb_press = false;
 	else if (keycode == SDLK_v)
 		fdf->reverse_z = false;
 }

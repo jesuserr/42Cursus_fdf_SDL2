@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/26 18:12:47 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/03/28 13:57:38 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	show_help_aux(SDL_Renderer *rend, int txt_x, int txt_y);
 void	render_hud(t_fdf *fdf)
 {
 	SDL_SetRenderDrawBlendMode(fdf->sdl.renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, BACKG_TRANSP);
 	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, HEIGHT - 10, 30, 10});
 	stringColor(fdf->sdl.renderer, 0, HEIGHT - 10, "[F1]", RGBA_WHITE);
 	if (fdf->show_fps)
@@ -51,7 +51,7 @@ static void	show_fps(t_fdf *fdf)
 		fdf->smooth_frame_time = (EMA_ALPHA * fdf->frame_time) + \
 		((1 - EMA_ALPHA) * fdf->smooth_frame_time);
 		snprintf(fps, sizeof(fps), "%3d", (int)(1000 / fdf->smooth_frame_time));
-		SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+		SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, BACKG_TRANSP);
 		SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 0, 60, 10});
 		stringColor(fdf->sdl.renderer, 0, 0, "FPS:", RGBA_WHITE);
 		stringColor(fdf->sdl.renderer, 35, 0, fps, RGBA_WHITE);
@@ -71,7 +71,7 @@ static void	show_angles(t_fdf *fdf)
 	snprintf(angle_x, sizeof(angle_x), "%3d", (int)fdf->angle_x);
 	snprintf(angle_y, sizeof(angle_y), "%3d", (int)fdf->angle_y);
 	snprintf(angle_z, sizeof(angle_z), "%3d", (int)fdf->angle_z);
-	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, FPS_TRANSP);
+	SDL_SetRenderDrawColor(fdf->sdl.renderer, 0, 0, 0, BACKG_TRANSP);
 	SDL_RenderFillRect(fdf->sdl.renderer, &(SDL_Rect){0, 10, 60, 30});
 	stringColor(fdf->sdl.renderer, 0, 10, "  x:", RGBA_WHITE);
 	stringColor(fdf->sdl.renderer, 35, 10, angle_x, RGBA_WHITE);
