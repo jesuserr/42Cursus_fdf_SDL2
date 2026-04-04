@@ -71,6 +71,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Translation**: Move the model using arrow keys or by dragging with the right mouse button
 - **Zoom**: Adjust viewing distance (keyboard and mouse wheel)
 - **Height scaling**: Adjust Z-axis elevation
+- **Bending effect**: Apply a wave/distortion effect to deform the terrain
 - **Smooth animation**: Automatic rotation mode
 - **Quick reset**: Restore default view with mouse wheel click
 
@@ -215,6 +216,13 @@ make re      # Recompile everything
 |-----|--------|
 | **3** | Increase line/point thickness |
 | **4** | Decrease line/point thickness |
+
+#### Bending Effect
+| Key | Action |
+|-----|--------|
+| **B** | Increase bending effect (wave distortion) |
+| **N** | Decrease bending effect |
+| **M** | Reset bending effect to default |
 
 ### Mouse Controls
 

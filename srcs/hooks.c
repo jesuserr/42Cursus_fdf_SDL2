@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/28 14:15:22 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:06:23 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
 		fdf->line_thickness += 2;
 	else if (keycode == SDLK_4 && fdf->line_thickness > DEF_LINE_THK)
 		fdf->line_thickness -= 2;
+	else if (keycode == SDLK_b)
+		fdf->key.b_press = true;
+	else if (keycode == SDLK_n)
+		fdf->key.n_press = true;
+	else if (keycode == SDLK_m)
+		fdf->key.m_press = true;
 }
 
 void	key_released(int keycode, t_fdf *fdf)
@@ -129,4 +135,10 @@ static void	key_released_aux(int keycode, t_fdf *fdf)
 		fdf->key.mwb_press = false;
 	else if (keycode == SDLK_v)
 		fdf->reverse_z = false;
+	else if (keycode == SDLK_b)
+		fdf->key.b_press = false;
+	else if (keycode == SDLK_n)
+		fdf->key.n_press = false;
+	else if (keycode == SDLK_m)
+		fdf->key.m_press = false;
 }

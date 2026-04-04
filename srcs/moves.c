@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/03 13:37:33 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 17:05:06 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	normalize_angles(t_fdf *fdf);
 void	apply_input_events(t_fdf *fdf)
 {
 	unrotate(fdf);
+	if (fdf->bending_factor != 0)
+		bending_effect(fdf, UNDO_EFFECT);
 	key_action_1(fdf);
 	key_action_2(fdf);
 	key_action_3(fdf);
@@ -31,6 +33,8 @@ void	apply_input_events(t_fdf *fdf)
 		fdf->mouse_delta_y = 0;
 	}
 	normalize_angles(fdf);
+	if (fdf->bending_factor != 0)
+		bending_effect(fdf, APPLY_EFFECT);
 	rotate(fdf);
 	projection(fdf);
 }
@@ -58,11 +62,17 @@ static void	key_action_1(t_fdf *fdf)
 		fdf->offset_y -= INC_OFFSET;
 	if (fdf->key.up_press)
 		fdf->offset_y += INC_OFFSET;
+	if (fdf->key.b_press)
+		fdf->bending_factor += BENDING_FACTOR;
+	if (fdf->key.n_press)
+		fdf->bending_factor -= BENDING_FACTOR;
 }
 
 /* Deals with the three available views */
 static void	key_action_2(t_fdf *fdf)
 {
+	if (fdf->key.m_press)
+		fdf->bending_factor = 0;
 	if (fdf->key.i_press || fdf->key.o_press || fdf->key.p_press)
 	{
 		fdf->zoom = INIT_ZOOM;
@@ -106,6 +116,7 @@ static void	key_action_3(t_fdf *fdf)
 		fdf->angle_x = 45;
 		fdf->angle_y = 35;
 		fdf->angle_z = 30;
+		fdf->bending_factor = 0;
 		recover_height(fdf);
 		if (fdf->z_is_reversed)
 			reverse_height(fdf);

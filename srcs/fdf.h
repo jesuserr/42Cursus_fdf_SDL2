@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/28 14:20:36 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:24:40 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@
 # define SHOT_DELAY		50000			// Microsecs delay after screenshot
 # define SHOT_COLOR		175				// Flash color for screenshot effect
 # define HELP_BOX_W		200				// Width of the help box
-# define HELP_BOX_H		210				// Height of the help box
+# define HELP_BOX_H		220				// Height of the help box
 # define DEF_LINE_THK	1				// Line default (and minimum) thickness
 # define MAX_LINE_THK	7				// Max line thickness
+# define BENDING_FACTOR	0.05			// Amplitude of the bending effect
+# define BENDING_FREQ	0.1				// Frequency of the bending effect
+# define UNDO_EFFECT	-1				// Undo the bending effect
+# define APPLY_EFFECT	1				// Apply the bending effect
 
 /*
 ** -.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-.-'-
@@ -138,6 +142,9 @@ typedef struct s_keys
 	bool	o_press;
 	bool	p_press;
 	bool	bar_press;
+	bool	b_press;
+	bool	n_press;
+	bool	m_press;
 	bool	mwb_press;					// Mouse wheel button pressed
 	bool	mlb_press;					// Mouse left button pressed
 }	t_keys;
@@ -189,6 +196,7 @@ typedef struct s_fdf
 	Uint8			line_thickness;
 	int				mouse_delta_x;
 	int				mouse_delta_y;
+	float			bending_factor;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer
@@ -200,7 +208,9 @@ typedef struct s_fdf
 */
 
 /********************************* effects.c **********************************/
-void	render_hud(t_fdf *fdf);
+void	bending_effect(t_fdf *fdf, int action);
+void	take_screenshot(t_fdf *fdf);
+void	delay_screenshot_effect(t_fdf *fdf);
 
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);
@@ -217,6 +227,9 @@ bool	is_line_visible(t_line *line);
 /********************************** hooks.c ***********************************/
 void	key_pressed(int keycode, t_fdf *fdf);
 void	key_released(int keycode, t_fdf *fdf);
+
+/*********************************** hud.c ************************************/
+void	render_hud(t_fdf *fdf);
 
 /********************************* map_utils.c ********************************/
 char	*read_map(char *file, t_fdf *fdf);
@@ -237,10 +250,6 @@ void	projection(t_fdf *fdf);
 /********************************* rotations.c ********************************/
 void	rotate(t_fdf *fdf);
 void	unrotate(t_fdf *fdf);
-
-/********************************* screenshot.c *******************************/
-void	take_screenshot(t_fdf *fdf);
-void	delay_screenshot_effect(t_fdf *fdf);
 
 /********************************** z-utils.c *********************************/
 void	z_centering(t_fdf *fdf);
