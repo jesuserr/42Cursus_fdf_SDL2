@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/27 19:45:52 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 19:26:58 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_map(char *file, t_fdf *fdf)
 	ft_printf ("%sOK!\nAnalyzing Map... ", BLUE);
 	verify_and_parse_map(fdf);
 	ft_printf ("%sOK!\n", BLUE);
+	fdf->bending_freq = (BENDING_WAVES * 2 * PI / (fdf->x_elem + fdf->y_elem));
 }
 
 void	init_win(t_fdf *fdf)

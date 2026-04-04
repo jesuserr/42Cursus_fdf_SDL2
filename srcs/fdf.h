@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 18:24:40 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 19:35:21 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 # define DEF_LINE_THK	1				// Line default (and minimum) thickness
 # define MAX_LINE_THK	7				// Max line thickness
 # define BENDING_FACTOR	0.05			// Amplitude of the bending effect
-# define BENDING_FREQ	0.1				// Frequency of the bending effect
+# define BENDING_WAVES	3				// Bending waves across the map
 # define UNDO_EFFECT	-1				// Undo the bending effect
 # define APPLY_EFFECT	1				// Apply the bending effect
 
@@ -197,6 +197,7 @@ typedef struct s_fdf
 	int				mouse_delta_x;
 	int				mouse_delta_y;
 	float			bending_factor;
+	float			bending_freq;
 	t_keys			key;
 	t_point			*map;
 	t_sdl_window	sdl;				// SDL window and renderer

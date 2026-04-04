@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 17:43:28 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/04 19:28:24 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // point position that deforms z-coordinates. With 'action' it is controlled if
 // the effect is added (1) or removed (-1). Every frame, the effect is removed
 // and re-applied once all the transformations to the map has been done.
+// Frequency is calculated based on map dimensions to always show the number of
+// waves specified in BENDING_WAVES regardless of map size.
 void	bending_effect(t_fdf *fdf, int action)
 {
 	int		i;
@@ -24,7 +26,7 @@ void	bending_effect(t_fdf *fdf, int action)
 	i = 0;
 	while (i < (fdf->x_elem * fdf->y_elem))
 	{
-		temp = sin((fdf->map[i].x + fdf->map[i].y) * BENDING_FREQ * PI);
+		temp = sin((fdf->map[i].x + fdf->map[i].y) * fdf->bending_freq);
 		fdf->map[i].z += temp * fdf->bending_factor * action;
 		i++;
 	}
