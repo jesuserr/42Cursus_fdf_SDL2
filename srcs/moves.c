@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 17:05:06 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:30:38 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	apply_input_events(t_fdf *fdf)
 	unrotate(fdf);
 	if (fdf->bending_factor != 0)
 		bending_effect(fdf, UNDO_EFFECT);
+	if (fdf->render_colors != fdf->prev_state_render_colors)
+		swap_render_color(fdf);
 	key_action_1(fdf);
 	key_action_2(fdf);
 	key_action_3(fdf);

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 14:23:42 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 21:35:13 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 01:16:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	verify_and_parse_map(t_fdf *fdf)
 	}
 	if (fdf->y_elem < 2)
 		free_split_and_exit(split, ERROR_MAP, fdf);
-	fdf->map = malloc (sizeof(t_point) * fdf->y_elem * fdf->x_elem);
+	fdf->total_points = fdf->x_elem * fdf->y_elem;
+	fdf->map = malloc (sizeof(t_point) * fdf->total_points);
 	if (!fdf->map)
 		free_split_and_exit(split, ERROR_MEM, fdf);
 	i = 0;

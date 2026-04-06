@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/25 19:37:48 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:05:02 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,11 @@ static void	project_x_lines(t_fdf *fdf)
 	int		i;
 
 	i = 0;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		line.x0 = (fdf->map[i].x * fdf->scale) + (WIDTH / 2) + fdf->offset_x;
 		line.y0 = (fdf->map[i].y * fdf->scale) + (HEIGHT / 2) + fdf->offset_y;
-		if (fdf->map[i].color == DEF_COLOR && fdf->render_color_gradient)
-			line.color0 = fdf->map[i].color_gradient;
-		else
-			line.color0 = fdf->map[i].color;
+		line.color0 = fdf->map[i].color;
 		if ((i % fdf->x_elem) != 0 && is_line_visible(&line))
 			draw_line(line, fdf);
 		line.x1 = line.x0;
@@ -95,23 +92,20 @@ static void	project_y_lines(t_fdf *fdf)
 	int		i;
 
 	i = 0;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		line.x0 = (fdf->map[i].x * fdf->scale) + (WIDTH / 2) + fdf->offset_x;
 		line.y0 = (fdf->map[i].y * fdf->scale) + (HEIGHT / 2) + fdf->offset_y;
-		if (fdf->map[i].color == DEF_COLOR && fdf->render_color_gradient)
-			line.color0 = fdf->map[i].color_gradient;
-		else
-			line.color0 = fdf->map[i].color;
+		line.color0 = fdf->map[i].color;
 		if (i >= fdf->x_elem && is_line_visible(&line))
 			draw_line(line, fdf);
 		line.x1 = line.x0;
 		line.y1 = line.y0;
 		i = i + fdf->x_elem;
-		if (i == ((fdf->x_elem * fdf->y_elem) + fdf->x_elem - 1))
+		if (i == fdf->total_points + fdf->x_elem - 1)
 			break ;
-		if (i >= (fdf->x_elem * fdf->y_elem))
-			i = i - ((fdf->x_elem * fdf->y_elem) - 1);
+		if (i >= fdf->total_points)
+			i = i - (fdf->total_points - 1);
 	}
 }
 
@@ -125,17 +119,12 @@ static void	project_points(t_fdf *fdf)
 	float	y;
 
 	i = 0;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		x = (fdf->map[i].x * fdf->scale) + (WIDTH / 2) + fdf->offset_x;
 		y = (fdf->map[i].y * fdf->scale) + (HEIGHT / 2) + fdf->offset_y;
 		if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
-		{
-			if (fdf->map[i].color == DEF_COLOR && fdf->render_color_gradient)
-				sdl_put_pixel(fdf, x, y, fdf->map[i].color_gradient);
-			else
-				sdl_put_pixel(fdf, x, y, fdf->map[i].color);
-		}
+			sdl_put_pixel(fdf, x, y, fdf->map[i].color);
 		i++;
 	}
 }

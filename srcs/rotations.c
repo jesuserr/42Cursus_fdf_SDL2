@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 15:22:46 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 20:36:14 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 01:16:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	rotate_x(t_fdf *fdf, float angle)
 	angle = angle * PI / 180;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		copy_y = fdf->map[i].y;
 		copy_z = fdf->map[i].z;
@@ -65,7 +65,7 @@ static void	rotate_y(t_fdf *fdf, float angle)
 	angle = angle * PI / 180;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		copy_x = fdf->map[i].x;
 		copy_z = fdf->map[i].z;
@@ -87,7 +87,7 @@ static void	rotate_z(t_fdf *fdf, float angle)
 	angle = angle * PI / 180;
 	cos_angle = cos(angle);
 	sin_angle = sin(angle);
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		copy_x = fdf->map[i].x;
 		copy_y = fdf->map[i].y;

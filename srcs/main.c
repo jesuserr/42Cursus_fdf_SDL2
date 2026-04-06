@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:40:52 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 19:26:58 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:30:38 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	init_map(char *file, t_fdf *fdf)
 	fdf->offset_x = INIT_OFFSET_X;
 	fdf->offset_y = INIT_OFFSET_Y;
 	fdf->user_scale_z = INC_ZOOM_Z;
-	fdf->render_color_gradient = true;
+	fdf->render_colors = true;
+	fdf->prev_state_render_colors = true;
 	fdf->line_thickness = DEF_LINE_THK;
 	fdf->frame_time = 1000 / FPS_LIMIT;
 	fdf->smooth_frame_time = 1000 / FPS_LIMIT;

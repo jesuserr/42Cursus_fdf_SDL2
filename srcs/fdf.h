@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 19:35:21 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:30:38 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_point
 	float	y;
 	float	z;
 	int		color;
-	int		color_gradient;
+	int		color_backup;
 }	t_point;
 
 typedef struct s_line
@@ -165,6 +165,7 @@ typedef struct s_fdf
 	size_t			raw_map_size;
 	int				x_elem;
 	int				y_elem;
+	int				total_points;
 	int				z_max;
 	int				z_min;
 	float			scale_x;
@@ -180,7 +181,8 @@ typedef struct s_fdf
 	float			user_scale_z;
 	int				num_scales_z;
 	bool			render_only_points;
-	bool			render_color_gradient;
+	bool			render_colors;
+	bool			prev_state_render_colors;
 	bool			show_fps;
 	bool			running;
 	bool			reverse_z;
@@ -212,6 +214,7 @@ typedef struct s_fdf
 void	bending_effect(t_fdf *fdf, int action);
 void	take_screenshot(t_fdf *fdf);
 void	delay_screenshot_effect(t_fdf *fdf);
+void	swap_render_color(t_fdf *fdf);
 
 /********************************** errors.c **********************************/
 void	ft_error_handler(int error);

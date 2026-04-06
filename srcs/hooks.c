@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 17:06:23 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:29:32 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	key_pressed_aux(int keycode, t_fdf *fdf)
 	else if (keycode == SDLK_r)
 		fdf->render_only_points = !fdf->render_only_points;
 	else if (keycode == SDLK_g)
-		fdf->render_color_gradient = !fdf->render_color_gradient;
+		fdf->render_colors = !fdf->render_colors;
 	else if (keycode == SDLK_f)
 		fdf->show_fps = !fdf->show_fps;
 	else if (keycode == SDLK_v && !fdf->reverse_z)

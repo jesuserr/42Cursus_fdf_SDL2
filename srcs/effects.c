@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 19:28:24 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:42:26 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	bending_effect(t_fdf *fdf, int action)
 	float	temp;
 
 	i = 0;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		temp = sin((fdf->map[i].x + fdf->map[i].y) * fdf->bending_freq);
 		fdf->map[i].z += temp * fdf->bending_factor * action;
@@ -64,4 +64,23 @@ void	delay_screenshot_effect(t_fdf *fdf)
 {
 	fdf->take_screenshot = false;
 	usleep(SHOT_DELAY);
+}
+
+// Swaps between current and backup color schemes for all map points. One of 
+// the schemes is either the hex color provided on map or a gradient based on
+// height, while the other one is just DEF_COLOR.
+void	swap_render_color(t_fdf *fdf)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	while (i < fdf->total_points)
+	{
+		tmp = fdf->map[i].color;
+		fdf->map[i].color = fdf->map[i].color_backup;
+		fdf->map[i].color_backup = tmp;
+		i++;
+	}
+	fdf->prev_state_render_colors = fdf->render_colors;
 }

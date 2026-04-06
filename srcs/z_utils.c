@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:25:20 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/28 14:16:51 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/06 01:16:09 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	z_centering(t_fdf *fdf)
 	fdf->scale_z = (-0.0004 * map_height) + 0.1044;
 	if (fdf->scale_z < 0.01)
 		fdf->scale_z = 0.01;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		if (fdf->map[i].color == DEF_COLOR)
 		{
@@ -38,9 +38,10 @@ void	z_centering(t_fdf *fdf)
 				norm_value = (fdf->map[i].z - fdf->z_min) / map_height;
 			else
 				norm_value = 0.5;
-			fdf->map[i].color_gradient = get_height_color(norm_value);
+			fdf->map[i].color = get_height_color(norm_value);
 		}
 		fdf->map[i].z *= fdf->scale_z;
+		fdf->map[i].color_backup = DEF_COLOR;
 		i++;
 	}
 }
@@ -85,13 +86,13 @@ void	modify_height(t_fdf *fdf)
 	i = 0;
 	if (fdf->key.one_press && fdf->num_scales_z < MAX_Z_SCALES)
 	{
-		while (i < (fdf->x_elem * fdf->y_elem))
+		while (i < fdf->total_points)
 			fdf->map[i++].z *= fdf->user_scale_z;
 		fdf->num_scales_z++;
 	}
 	else if (fdf->key.two_press && fdf->num_scales_z > -MAX_Z_SCALES)
 	{
-		while (i < (fdf->x_elem * fdf->y_elem))
+		while (i < fdf->total_points)
 			fdf->map[i++].z /= fdf->user_scale_z;
 		fdf->num_scales_z--;
 	}
@@ -108,13 +109,13 @@ void	recover_height(t_fdf *fdf)
 		i = 0;
 		if (fdf->num_scales_z > 0)
 		{
-			while (i < (fdf->x_elem * fdf->y_elem))
+			while (i < fdf->total_points)
 				fdf->map[i++].z /= fdf->user_scale_z;
 			fdf->num_scales_z--;
 		}
 		if (fdf->num_scales_z < 0)
 		{
-			while (i < (fdf->x_elem * fdf->y_elem))
+			while (i < fdf->total_points)
 				fdf->map[i++].z *= fdf->user_scale_z;
 			fdf->num_scales_z++;
 		}
@@ -126,7 +127,7 @@ void	reverse_height(t_fdf *fdf)
 	int64_t	i;
 
 	i = 0;
-	while (i < (fdf->x_elem * fdf->y_elem))
+	while (i < fdf->total_points)
 	{
 		fdf->map[i].z = -fdf->map[i].z;
 		i++;
