@@ -62,9 +62,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 ## ✨ Features
 
 ### Visualization Modes
-- **Isometric projection** (default view)
-- **Parallel/Orthographic projection**
-- **Perspective projection**
+- **Orthographic/Isometric projection** (hardware-accelerated rendering)
 
 ### Interactive Controls
 - **3D Rotation**: Rotate on X, Y, and Z axes with keyboard controls or by dragging with the left mouse button
@@ -289,8 +287,8 @@ The project includes various test maps in the `maps/` directory:
 │   ├── fdf.h                   # Main header with structs and prototypes
 │   ├── main.c                  # Entry point and initialization
 │   ├── graphics.c              # SDL2 rendering functions
-│   ├── effects.c               # HUD overlay (FPS, angles, help)
-│   ├── screenshot.c            # Screenshot capture to PNG files
+│   ├── effects.c               # Screenshot capture & bending effects
+│   ├── hud.c                   # HUD overlay (FPS, angles, help)
 │   ├── hooks.c                 # Keyboard event handling
 │   ├── mouse.c                 # Mouse event handling (wheel, clicks)
 │   ├── projections.c           # Projection calculations
@@ -311,8 +309,9 @@ The project includes various test maps in the `maps/` directory:
 
 ### Algorithm Highlights
 - **Bresenham's Line Algorithm**: Efficient rasterization with integer arithmetic, optimized for direct pixel buffer access
-- **3D Rotation Matrices**: Separate X, Y, Z axis rotations
-- **Isometric Projection**: 45° rotation on Y-axis, 35° on X-axis
+- **3D Rotation Matrices**: Separate X, Y, Z axis rotations with adjustable angles
+- **Orthographic Projection**: Scale-based 2D rendering with optional 3D rotation transformations
+- **View Modes**: Preset camera angles for top view (I), front view (O), and side view (P)
 - **Automatic Scaling**: Adapts to different map sizes and window dimensions
 
 ### Hypsometric Color Palette
