@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:14:43 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/04 17:07:06 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 19:25:42 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	show_help_aux(SDL_Renderer *rend, int txt_x, int txt_y)
 	stringColor(rend, txt_x, txt_y += 10, "Animation:      Space", RGBA_WHITE);
 	stringColor(rend, txt_x, txt_y += 10, "Thickness:      3/4", RGBA_WHITE);
 	stringColor(rend, txt_x, txt_y += 10, "Bending:        B/N/M", RGBA_WHITE);
+	stringColor(rend, txt_x, txt_y += 10, "Points Halved:  H", RGBA_WHITE);
 	stringColor(rend, txt_x, txt_y += 10, "Exit:           ESC", RGBA_WHITE);
 	stringColor(rend, txt_x, txt_y += 20, "------ CONTROLS ------", RGBA_WHITE);
 }

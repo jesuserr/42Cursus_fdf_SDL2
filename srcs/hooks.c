@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:54:26 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/06 12:29:32 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 23:08:42 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static void	key_pressed_aux_2(int keycode, t_fdf *fdf)
 		fdf->key.n_press = true;
 	else if (keycode == SDLK_m)
 		fdf->key.m_press = true;
+	else if (keycode == SDLK_h && !fdf->render_only_points)
+		fdf->render_half_points = !fdf->render_half_points;
 }
 
 void	key_released(int keycode, t_fdf *fdf)

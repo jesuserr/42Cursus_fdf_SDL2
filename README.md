@@ -70,6 +70,7 @@ The core FDF logic remains intact, with changes focused on the rendering layer:
 - **Zoom**: Adjust viewing distance (keyboard and mouse wheel)
 - **Height scaling**: Adjust Z-axis elevation
 - **Bending effect**: Apply a wave/distortion effect to deform the terrain
+- **Point simplification**: Dynamically halve the number of rendered points to improve performance on dense maps
 - **Smooth animation**: Automatic rotation mode
 - **Quick reset**: Restore default view with mouse wheel click
 
@@ -209,11 +210,12 @@ make re      # Recompile everything
 | **2** | Decrease Z-axis height |
 | **V** | Reverse Z-axis (flip terrain upside down) |
 
-#### Line Thickness
+#### Line & Point Control
 | Key | Action |
 |-----|--------|
 | **3** | Increase line/point thickness |
 | **4** | Decrease line/point thickness |
+| **H** | Toggle point simplification (halves rendered points) |
 
 #### Bending Effect
 | Key | Action |

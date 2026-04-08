@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:34:08 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/06 12:30:38 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 23:32:26 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define SHOT_DELAY		50000			// Microsecs delay after screenshot
 # define SHOT_COLOR		175				// Flash color for screenshot effect
 # define HELP_BOX_W		200				// Width of the help box
-# define HELP_BOX_H		220				// Height of the help box
+# define HELP_BOX_H		230				// Height of the help box
 # define DEF_LINE_THK	1				// Line default (and minimum) thickness
 # define MAX_LINE_THK	7				// Max line thickness
 # define BENDING_FACTOR	0.05			// Amplitude of the bending effect
@@ -191,6 +191,8 @@ typedef struct s_fdf
 	bool			img_init_success;
 	bool			show_angles;
 	bool			show_help;
+	bool			render_half_points;
+	bool			skip_point;
 	Uint32			frame_start;
 	Uint32			frame_time;
 	Uint32			smooth_frame_time;

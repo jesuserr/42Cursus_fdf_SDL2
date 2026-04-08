@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 16:03:40 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/03/26 19:46:44 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 23:32:26 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	draw_line(t_line line, t_fdf *fdf)
 	line_aux.error = line_aux.dx + line_aux.dy;
 	while (!(line.x0 == line.x1 && line.y0 == line.y1))
 	{
-		if (line.x0 >= 0 && line.y0 >= 0 && line.x0 < WIDTH && line.y0 < HEIGHT)
+		if (fdf->render_half_points)
+			fdf->skip_point = !fdf->skip_point;
+		if ((!fdf->render_half_points || !fdf->skip_point) && line.x0 >= 0 && \
+		line.y0 >= 0 && line.x0 < WIDTH && line.y0 < HEIGHT)
 			sdl_put_pixel(fdf, line.x0, line.y0, line.color0);
 		if ((2 * line_aux.error) >= line_aux.dy)
 		{

@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 11:47:50 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/06 12:30:38 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 23:12:59 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ static void	key_action_3(t_fdf *fdf)
 		if (fdf->z_is_reversed)
 			reverse_height(fdf);
 		fdf->line_thickness = DEF_LINE_THK;
+		fdf->render_half_points = false;
 	}
 	if (fdf->reverse_z)
 		reverse_height(fdf);

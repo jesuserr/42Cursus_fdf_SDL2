@@ -6,7 +6,7 @@
 /*   By: jesuserr <jesuserr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:43:38 by jesuserr          #+#    #+#             */
-/*   Updated: 2026/04/06 12:05:02 by jesuserr         ###   ########.fr       */
+/*   Updated: 2026/04/08 23:32:26 by jesuserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	project_x_lines(t_fdf *fdf)
 	t_line	line;
 	int		i;
 
+	fdf->skip_point = true;
 	i = 0;
 	while (i < fdf->total_points)
 	{
